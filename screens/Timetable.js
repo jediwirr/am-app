@@ -1,15 +1,26 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
 
-import { styles } from '../components/Style';
+import { styles, theme, theme_text } from '../components/Style';
 
 const TimetableScreen = () => {
+    const darkTheme = useSelector(state => state.darkTheme);
+
     return (
-        <View style={styles.container}>
-            <Text>
+        <ScrollView style={ 
+            darkTheme 
+            ? theme.dark 
+            : theme.light
+        } contentContainerStyle={styles.container}>
+            <Text style={ 
+                darkTheme 
+                ? theme_text.dark 
+                : theme_text.light
+            }>
                 TIMETABLE
             </Text>
-        </View>
+        </ScrollView>
     )
 }
 

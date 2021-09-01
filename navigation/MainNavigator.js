@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
 
 import MenuScreen from '../screens/Menu';
 import DiaryScreen from '../screens/Diary';
@@ -8,18 +9,23 @@ import MarksScreen from '../screens/Marks';
 import LoadsScreen from '../screens/Loads';
 import TimetableScreen from '../screens/Timetable';
 
+
 const Tab = createBottomTabNavigator();
 
 export const MainNavigator = () => {
+    const darkTheme = useSelector(state => state.darkTheme);
 
     return (
         <Tab.Navigator
             screenOptions={{
                 tabBarActiveBackgroundColor: '#002e2f',
                 tabBarInactiveBackgroundColor: '#002e2f',
-                tabBarActiveTintColor: '#fff'
-            }}
-        >
+                tabBarActiveTintColor: '#fff',
+                headerStyle: {
+                    backgroundColor: '#002e2f',
+                  },
+                headerTintColor: '#fff'
+            }}>
             <Tab.Group>
                 <Tab.Screen
                     name="Main"
@@ -27,8 +33,8 @@ export const MainNavigator = () => {
                     options={{
                         tabBarIcon: () => (
                             <Ionicons 
-                                name="home-outline"
-                                color="white"
+                                name='home-outline'
+                                color='#fff'
                                 size={25}
                             />
                         ),
@@ -41,8 +47,8 @@ export const MainNavigator = () => {
                     options={{
                         tabBarIcon: () => (
                             <Ionicons 
-                                name="book-outline"
-                                color="white"
+                                name='book-outline'
+                                color='#fff'
                                 size={25}
                             />
                         ),
@@ -55,8 +61,8 @@ export const MainNavigator = () => {
                     options={{
                         tabBarIcon: () => (
                             <Ionicons 
-                                name="create-outline"
-                                color="white"
+                                name='create-outline'
+                                color='#fff'
                                 size={25}
                             />
                         ),
@@ -69,8 +75,8 @@ export const MainNavigator = () => {
                     options={{
                         tabBarIcon: () => (
                             <Ionicons 
-                                name="attach"
-                                color="white"
+                                name='attach'
+                                color='#fff'
                                 size={25}
                             />
                         ),
@@ -83,8 +89,8 @@ export const MainNavigator = () => {
                     options={{
                         tabBarIcon: () => (
                             <Ionicons 
-                                name="calendar-outline"
-                                color="white"
+                                name='calendar-outline'
+                                color='#fff'
                                 size={25}
                             />
                         ),

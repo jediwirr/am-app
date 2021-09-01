@@ -1,9 +1,26 @@
 import { StyleSheet } from 'react-native';
 
+export const theme = StyleSheet.create({
+    dark: {
+        backgroundColor: '#000'
+    },
+    light: {
+        backgroundColor: '#fff'
+    }
+});
+
+export const theme_text = StyleSheet.create({
+    dark: {
+        color: '#fff'
+    },
+    light: {
+        color: '#000'
+    }
+});
+
 export const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center'
     },
@@ -33,7 +50,7 @@ export const styles = StyleSheet.create({
     },
     listItem: {
         fontSize: 21,
-        marginLeft: 10,
+        marginLeft: 10
     },
     listItemContainer: {
         paddingVertical: 12,
@@ -46,7 +63,37 @@ export const styles = StyleSheet.create({
         padding: 25
     },
     modalButton: {
-        // margin: 15
         color: 'red'
+    },
+    settingsScreen: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        marginTop: 10, 
+        paddingLeft: 5 
+    },
+    adsScreen: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        padding: 15
+    },
+    account_role: {
+        fontWeight: 'bold', 
+        fontSize: 21, 
+        textAlign: 'center'
+    },
+    account_name: {
+        fontSize: 21, 
+        textAlign: 'center', 
+        marginTop: 30, 
+        borderWidth: 1, 
+        borderColor: 'gray' 
+    }
+  });
+
+  export const styles_dark = StyleSheet.create({
+    listItem: {
+        fontSize: 21,
+        marginLeft: 10,
+        color: '#fff'
     }
   });

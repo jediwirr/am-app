@@ -17,7 +17,12 @@ export const UserNavigator = () => {
 
     return (
         isSignedIn ? (
-            <Stack.Navigator>
+            <Stack.Navigator screenOptions={{
+                headerStyle: {
+                    backgroundColor: '#002e2f',
+                  },
+                headerTintColor: '#fff'
+            }}>
                 <Stack.Group screenOptions={{ headerShown: false }}>
                     <Stack.Screen 
                         name='Меню'

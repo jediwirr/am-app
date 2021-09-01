@@ -1,22 +1,29 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
 
-import { styles } from '../components/Style';
+import { styles, theme } from '../components/Style';
 
 const AccountScreen = () => {
+    const darkTheme = useSelector(state => state.darkTheme)
+
     return (
-        <View>
-            <Text style={{ fontWeight: 'bold', fontSize: 21, textAlign: 'center' }}>Ученик</Text>
-            <Text style={{ 
-                fontSize: 21, 
-                textAlign: 'center', 
-                marginTop: 30, 
-                borderWidth: 1, 
-                borderColor: 'gray' 
-            }}>
-                Имя ученика
-            </Text>
-        </View>
+        <ScrollView style={ 
+            darkTheme 
+            ? theme.dark 
+            : theme.light
+        }>
+            <Text style={ 
+                darkTheme 
+                ? {...styles.account_role, color: '#fff'} 
+                : {...styles.account_role, color: '#000'} 
+            }>Ученик</Text>
+            <Text style={ 
+                darkTheme 
+                ? {...styles.account_name, color: '#fff'} 
+                : {...styles.account_name, color: '#000'} 
+            }>Имя ученика</Text>
+        </ScrollView>
     )
 }
 

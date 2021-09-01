@@ -33,6 +33,7 @@ const AuthScreen = () => {
                     onChangeText={password => onChangePassword(password)}
                     value={password}
                     placeholder='Введите пароль'
+                    secureTextEntry={true}
                 />
             </View>
             <Button
