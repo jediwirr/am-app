@@ -8,7 +8,7 @@ import { styles, theme } from '../components/Style';
 const SettingsScreen = () => {
     const dispatch = useDispatch();
     const change_theme = () => dispatch({type: 'CHANGE_THEME'});
-    const darkTheme = useSelector(state => state.darkTheme);
+    const darkTheme = useSelector(state => state.theme.darkTheme);
 
     return (
         <ScrollView style={

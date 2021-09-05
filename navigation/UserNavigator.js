@@ -13,7 +13,7 @@ import AuthScreen from '../screens/AuthScreen';
 const Stack = createStackNavigator();
 
 export const UserNavigator = () => {
-    const isSignedIn = useSelector(state => state.isSignedIn);
+    const isSignedIn = useSelector(state => state.auth.isSignedIn);
 
     return (
         isSignedIn ? (

@@ -50,7 +50,8 @@ export const styles = StyleSheet.create({
     },
     listItem: {
         fontSize: 21,
-        marginLeft: 10
+        marginLeft: 10,
+        color: '#000'
     },
     listItemContainer: {
         paddingVertical: 12,
@@ -84,9 +85,18 @@ export const styles = StyleSheet.create({
     account_name: {
         fontSize: 21, 
         textAlign: 'center', 
-        marginTop: 30, 
-        borderWidth: 1, 
-        borderColor: 'gray' 
+        marginTop: 30
+    },
+    period_list_container: {
+        flexDirection: 'row', 
+        borderRadius: 10, 
+        paddingVertical: 8, 
+        backgroundColor: '#c9c9c9' 
+    },
+    period: {
+        flex: 6,
+        borderRightColor: '#fff',
+        borderRightWidth: 1
     }
   });
 

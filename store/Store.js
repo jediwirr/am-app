@@ -1,36 +1,17 @@
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 
-const initialState = {
-    isSignedIn: false,
-    darkTheme: false
-}
+import { authReducer } from './reducers/authReducer';
+import { themeReducer } from './reducers/themeReduer';
+import { marksReducer } from './reducers/marksReducer';
+import { dateReducer } from './reducers/dateReducer';
 
-const reducer = (state=initialState, action) => {
-    switch(action.type) {
-        case 'LOG_IN':
-        
-            return {
-                ...state,
-                isSignedIn: true
-            }
-
-        case 'LOG_OUT':
-        
-            return {
-                ...state,
-                isSignedIn: false
-            }
-
-        case 'CHANGE_THEME':
-    
-            return {
-                ...state,
-                darkTheme: !state.darkTheme
-            }
-
-        default:
-            return state
+const rootReducer = combineReducers(
+    {
+        auth: authReducer, 
+        theme: themeReducer, 
+        marks: marksReducer,
+        date: dateReducer
     }
-}
+    );
 
-export const store = createStore(reducer);
+export const store = createStore(rootReducer);

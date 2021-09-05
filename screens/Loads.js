@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { styles, theme, theme_text } from '../components/Style';
 
 const LoadsScreen = () => {
-    const darkTheme = useSelector(state => state.darkTheme);
+    const darkTheme = useSelector(state => state.theme.darkTheme);
 
     return (
         <ScrollView  style={ 

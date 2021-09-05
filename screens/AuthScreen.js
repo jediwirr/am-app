@@ -1,15 +1,45 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Text, View, Image, TextInput, SafeAreaView } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+    TextInput, 
+    Text, 
+    View, 
+    Image,   
+    Alert,
+    SafeAreaView
+} from 'react-native';
 import {  Button } from 'react-native-paper';
 
 import { styles } from '../components/Style';
 
 const AuthScreen = () => {
     const dispatch = useDispatch();
-    const log_in = () => dispatch({type: 'LOG_IN'});
+    const log_in = (user, user_type, user_data) => dispatch({type: 'LOG_IN', user, user_type, user_data});
     const [login, onChangeLogin] = useState('');
     const [password, onChangePassword] = useState('');
+
+    const sendCredentials = () => {
+        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/check_login.php?username=${login}&password=${password}&token=alma831`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(response => {
+            
+            let obj = {
+                'clue': response.clue,
+                'user_id': response.user_id
+            }
+
+            response.status === 0
+            ? response.student.map(item => log_in(item, response.type, obj))
+            : login === '' || password === ''
+            ? Alert.alert('Введите логин и пароль')
+            : Alert.alert('Вы ввели неверный логин или пароль')
+
+            console.log(obj)
+        })
+        .catch(error => console.log(error))
+    }
 
     return (
         <SafeAreaView style={{ ...styles.container, backgroundColor: '#00656d' }}>
@@ -27,6 +57,7 @@ const AuthScreen = () => {
                     onChangeText={login => onChangeLogin(login)}
                     value={login}
                     placeholder='Введите логин'
+                    autoCapitalize='none'
                 />
                 <TextInput 
                     style={styles.input} 
@@ -37,7 +68,7 @@ const AuthScreen = () => {
                 />
             </View>
             <Button
-                onPress={log_in}
+                onPress={sendCredentials}
                 color='#fff'
                 uppercase={false}
                 style={{ padding: 10 }}

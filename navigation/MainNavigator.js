@@ -1,7 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { useSelector } from 'react-redux';
 
 import MenuScreen from '../screens/Menu';
 import DiaryScreen from '../screens/Diary';
@@ -13,7 +12,6 @@ import TimetableScreen from '../screens/Timetable';
 const Tab = createBottomTabNavigator();
 
 export const MainNavigator = () => {
-    const darkTheme = useSelector(state => state.darkTheme);
 
     return (
         <Tab.Navigator
