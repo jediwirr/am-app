@@ -1,11 +1,11 @@
 const full_date = new Date(Date());
-const date = full_date.getDate();
 const month = full_date.getMonth();
 const day = full_date.getDay();
+let date = full_date.getDate();
 
-const months = [
+export const months = [
     'января', 
-    'февраля', 
+    'февраля',
     'марта', 
     'апреля', 
     'мая', 
@@ -18,7 +18,7 @@ const months = [
     'декабря'
 ]
 
-const days = [
+export const days = [
     'воскресенье',
     'понедельник',
     'вторник',
@@ -28,8 +28,8 @@ const days = [
     'суббота'
 ]
 
-let m;
 let d;
+let m;
 
 const get_month = () => {
     for (let i=0; i<12; i++) {
@@ -51,7 +51,53 @@ const get_day = () => {
     return d;
 }
 
-get_month();
-get_day();
+const getNextMonth = () => {
+    let i=months.indexOf(m);
+    date = 1;
+    m === months[11] ? m = months[0] : m = months[i + 1];
+}
 
-console.log(`Сегодня ${d}, ${date} ${m}`);
+const getNextDate = () => {
+    if (m === months[0]
+        || m === months[2]
+        || m === months[4]
+        || m === months[6]
+        || m === months[7]
+        || m === months[9]
+        || m === months[11])
+    {
+        date === 31 ? getNextMonth() : date += 1
+    } else if (m === months[1]) {
+        date >= 28 ? getNextMonth() : date += 1
+    } else {
+        date === 30 ? getNextMonth() : date += 1
+    }
+
+    d === days[6] ? d = days[0] : d = days[days.indexOf(d) + 1];
+}
+
+
+// get_month();
+// get_day();
+// console.log(m);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+// getNextDate();
+// console.log(`${date} ${m}, ${d}`);
+

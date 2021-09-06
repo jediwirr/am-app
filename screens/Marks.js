@@ -69,7 +69,7 @@ const MarksScreen = () => {
                 )}
             </View>
 
-            <View style={ 
+            <SafeAreaView style={ 
                 darkTheme 
                 ? theme.dark 
                 : theme.light
@@ -79,7 +79,7 @@ const MarksScreen = () => {
                     renderItem={renderItem}
                     keyExtractor={item => item.subject_id}
                 />
-            </View>
+            </SafeAreaView>
         </SafeAreaView>
     )
 }
