@@ -97,6 +97,21 @@ export const styles = StyleSheet.create({
         flex: 6,
         borderRightColor: '#fff',
         borderRightWidth: 1
+    },
+    calendarDay: {
+        padding: 26,
+        borderWidth: 1,
+        borderColor: 'gray'
+    },
+    lessonInfoTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        padding: 5,
+        backgroundColor: '#20B2AA'
+    },
+    lessonInfo: {
+        padding: 5,
+        fontSize: 18
     }
   });
 

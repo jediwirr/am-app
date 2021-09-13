@@ -1,26 +1,43 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import {Text, View, ScrollView, Modal, Pressable, TouchableOpacity} from 'react-native';
 import { Button } from 'react-native-paper';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 
 import { styles, theme, theme_text } from '../components/Style';
 import { days, months } from "../components/Date";
+import Calendar from "./Calendar";
+import Lesson from "./Lesson";
 
 const DiaryScreen = () => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
+    const lessons = useSelector(state => state.lesson.lessons)
     const full_date = new Date(Date());
-    const year = full_date.getFullYear();
-    const month = full_date.getMonth();
+    const year = useSelector(state => state.date.year);
+    const month = useSelector(state => state.date.month);
     const day = full_date.getDay();
-    const [date, setDate] = useState(full_date.getDate());
-    const [d, set_d] = useState('');
-    const [m, set_m] = useState('');
+
+    const dispatch = useDispatch();
+    const setLessons = (payload) => dispatch({type: 'SET_LESSONS', payload});
+    const setDate = (date) => dispatch({type: 'SET_DATE', date});
+    const set_m = (month_num, month) => dispatch({type: 'SET_MONTH', month_num,  month});
+    const set_d = (day) => dispatch({type: 'SET_DAY', day});
+    const toggleCalendar = () => dispatch({type: 'TOGGLE_CALENDAR'});
+    const toggleLessonInfo = () => dispatch({type: 'TOGGLE_LESSON_INFO'});
+
+    const d = useSelector(state => state.date.stringDay);
+    const m = useSelector(state => state.date.stringMonth);
+    const date = useSelector(state => state.date.stringDate);
+    const isCalendar = useSelector(state => state.calendar.openCalendar);
+    const isLesson = useSelector(state => state.lesson.openLesson);
+
+    const userData = useSelector(state => state.auth.userData);
+    const user = useSelector(state => state.auth.user);
 
     const get_month = () => {
         for (let i=0; i<12; i++) {
             if (month === i) {
-                set_m(months[i]);
+                set_m(month, months[i]);
             }
         }
 
@@ -37,15 +54,31 @@ const DiaryScreen = () => {
         return d;
     }
 
+    const date_lesson = `${year}-${month < 10 ? '0' + (month + 1).toString() : month + 1}-${date < 10 ? '0' + date.toString() : date}`;
+
     useEffect(() => {
         get_day();
         get_month();
     }, [])
 
+    useEffect(() => {
+        setLessons([]);
+
+        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/open_diary.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&date_lesson=${date_lesson}`, {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(response => {
+                // const l = response.lessons.map(lesson => lesson)
+
+                setLessons(response.lessons);
+            })
+    }, [date])
+
     const getNextMonth = () => {
         let i=months.indexOf(m);
         setDate(1);
-        m === months[11] ? set_m(months[0]) : set_m(months[i + 1]);
+        m === months[11] ? set_m(0, months[0]) : set_m(month + 1, months[i + 1]);
     }
 
     const getPrevMonth = () => {
@@ -64,10 +97,11 @@ const DiaryScreen = () => {
             setDate(31);
         }
 
-        m === months[0] ? set_m(months[11]) : set_m(months[i - 1]);
+        m === months[0] ? set_m(11, months[11]) : set_m(month - 1, months[i - 1]);
     }
 
     const getNextDate = () => {
+
         if (
             m === months[0]
             || m === months[2]
@@ -89,47 +123,93 @@ const DiaryScreen = () => {
     }
 
     const getPrevDate = () => {
+
         date === 1 ? getPrevMonth() : setDate(date - 1);
         d === days[0] ? set_d(days[6]) : set_d(days[days.indexOf(d) - 1]);
     }
 
     return (
-        <ScrollView style={
-            darkTheme 
-            ? theme.dark 
-            : theme.light 
+        <View>
+
+            <Modal
+                animationType='slide'
+                onRequestClose={() => toggleCalendar()}
+                visible={isCalendar}
+                transparent={false}
+            >
+                <Calendar />
+            </Modal>
+
+            <ScrollView style={
+                darkTheme
+                    ? theme.dark
+                    : theme.light
             } contentContainerStyle={styles.adsScreen}>
-            <Button
-                onPress={() => getPrevDate()}
-            >
-                <Ionicons
-                    name='arrow-back'
-                    size={25}
-                    color={darkTheme ? '#fff': '#000'}
-                />
-            </Button>
-            <View style={{ flexDirection: 'column' }}>
-                <Text style={ 
-                    darkTheme 
-                    ? { ...theme_text.dark, fontSize: 20 } 
-                    : { ...theme_text.light, fontSize: 20 } 
-                }>{date} {m}</Text>
-                <Text style={ 
-                    darkTheme 
-                    ? { ...theme_text.dark, fontSize: 20, textAlign: 'center' } 
-                    : { ...theme_text.light, fontSize: 20, textAlign: 'center' } 
-                }>{d}</Text>
-            </View>
-            <Button
-                onPress={() => getNextDate()}
-            >
-                <Ionicons
-                    name='arrow-forward'
-                    size={25}
-                    color={darkTheme ? '#fff': '#000'}
-                />
-            </Button>
-        </ScrollView>
+                <Button
+                    onPress={() => getPrevDate()}
+                >
+                    <Ionicons
+                        name='arrow-back'
+                        size={25}
+                        color={darkTheme ? '#fff': '#000'}
+                    />
+                </Button>
+                <Pressable
+                    style={{ flexDirection: 'column' }}
+                    onPress={() => toggleCalendar()}
+                >
+                    <Text style={
+                        darkTheme
+                            ? { ...theme_text.dark, fontSize: 20 }
+                            : { ...theme_text.light, fontSize: 20 }
+                    }>{date} {m}</Text>
+                    <Text style={
+                        darkTheme
+                            ? { ...theme_text.dark, fontSize: 20, textAlign: 'center' }
+                            : { ...theme_text.light, fontSize: 20, textAlign: 'center' }
+                    }>{d}</Text>
+                </Pressable>
+                <Button
+                    onPress={() => getNextDate()}
+                >
+                    <Ionicons
+                        name='arrow-forward'
+                        size={25}
+                        color={darkTheme ? '#fff': '#000'}
+                    />
+                </Button>
+            </ScrollView>
+
+            <ScrollView>
+                {lessons.map(lesson =>
+                    <TouchableOpacity
+                        key={lesson.lesson_id}
+                        style={{padding: 10, borderWidth: 1, borderColor: 'gray'}}
+                        onPress={() => console.log('lesson')}
+                    >
+
+                        <Modal
+                            animationType='slide'
+                            visible={isLesson}
+                            transparent={false}
+                        >
+                            <Lesson />
+                        </Modal>
+
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <Text style={{fontWeight: 'bold'}}>{lesson.subject_name}</Text>
+                            <Text style={{color: 'green', paddingHorizontal: 15, fontSize: 16}}>{lesson.value}</Text>
+                        </View>
+
+                        <Text>{lesson.homework}</Text>
+                        <Text
+                            style={{color: lesson.comment_type === 1 ? 'green' : 'red'}}
+                        >{lesson.comment}</Text>
+                        <Text>Файлы({lesson.numrows_files_lesson})</Text>
+                    </TouchableOpacity>
+                )}
+            </ScrollView>
+        </View>
     )
 }
 

@@ -76,7 +76,6 @@ const getNextDate = () => {
     d === days[6] ? d = days[0] : d = days[days.indexOf(d) + 1];
 }
 
-
 // get_month();
 // get_day();
 // console.log(m);

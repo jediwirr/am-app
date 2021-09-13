@@ -21,7 +21,7 @@ const MarksScreen = () => {
         })
         .then(response => response.json())
         .then(response => {
-            // loadMarks(response.marks)
+            console.log(response)
             setSubjects(response.marks)
         })
         .catch(error => console.log(error))
@@ -32,55 +32,63 @@ const MarksScreen = () => {
             <Text style={{ 
                 color: darkTheme ? '#fff' : '#000', 
                 fontSize: 18, 
-                paddingHorizontal: 15, 
+                paddingHorizontal: 15,
+                paddingBottom: 15,
                 fontWeight: 'bold' 
             }}>{title}</Text>
-            <Text style={darkTheme ? styles_dark.listItem : styles.listItem}>
+            <Text style={{color: 'green', paddingHorizontal: 15, fontSize: 16}}>
                 {marks}
             </Text>
         </View>
     )
 
     const renderItem = ({ item }) => (
-        <Item 
-            title={item.subject} 
-            marks={
-                item.stringMarks.map(item => item)
-            } 
-        />
+            <Item
+                title={item.subject}
+                marks={
+                    item.stringMarks[0]
+                }
+            />
+    )
+
+    const Header = () => (
+        <View style={styles.period_list_container}>
+            {periods.map(period =>
+                <TouchableOpacity
+                    key={period}
+                    style={styles.period}
+                    onPress={() =>
+                        console.log('touch')
+                    }>
+                    <Text
+                        key={period}
+                        style={{textAlign: 'center'}}
+                    >
+                        {period}
+                    </Text>
+                </TouchableOpacity>
+            )}
+        </View>
     )
 
     return (
-        <SafeAreaView>
-            <View style={styles.period_list_container}>
-                {periods.map(period =>
-                    <TouchableOpacity 
-                        key={period}
-                        style={styles.period}
-                        onPress={() => 
-                            console.log('touch')
-                        }>
-                        <Text 
-                        key={period}
-                        style={{textAlign: 'center'}}>
-                            {period}
-                        </Text>
-                    </TouchableOpacity>
-                )}
-            </View>
-
-            <SafeAreaView style={ 
+        <SafeAreaView style={
                 darkTheme 
-                ? theme.dark 
-                : theme.light
+                    ? theme.dark
+                    : theme.light
             }>
                 <FlatList 
                     data={subjects}
                     renderItem={renderItem}
                     keyExtractor={item => item.subject_id}
+                    ListHeaderComponent={
+                        <Header />
+                    }
+                    ListFooterComponent={
+                        <Text style={{paddingVertical: 25}}></Text>
+                    }
                 />
             </SafeAreaView>
-        </SafeAreaView>
     )
 }
 

@@ -1,7 +1,9 @@
 const initialState = {
-    stringDate: '',
+    stringDate: new Date(Date()).getDate(),
     stringMonth: '',
-    stringDay: ''
+    stringDay: '',
+    year: new Date(Date()).getFullYear(),
+    month: new Date(Date()).getMonth()
 }
 
 export const dateReducer = (state=initialState, action) => {
@@ -17,6 +19,7 @@ export const dateReducer = (state=initialState, action) => {
 
             return {
                 ...state,
+                month: action.month_num,
                 stringMonth: action.month
             }
 
