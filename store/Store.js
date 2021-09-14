@@ -6,6 +6,7 @@ import { marksReducer } from './reducers/marksReducer';
 import { dateReducer } from './reducers/dateReducer';
 import {calendarReducer} from "./reducers/calendarReducer";
 import {lessonReducer} from "./reducers/lessonReducer";
+import {loadsReducer} from "./reducers/loadsReducer";
 
 const rootReducer = combineReducers(
     {
@@ -14,7 +15,8 @@ const rootReducer = combineReducers(
         marks: marksReducer,
         date: dateReducer,
         calendar: calendarReducer,
-        lesson: lessonReducer
+        lesson: lessonReducer,
+        loads: loadsReducer
     });
 
 export const store = createStore(rootReducer);

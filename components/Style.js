@@ -88,12 +88,12 @@ export const styles = StyleSheet.create({
         marginTop: 30
     },
     period_list_container: {
-        flexDirection: 'row', 
-        borderRadius: 10, 
-        paddingVertical: 8, 
+        flexDirection: 'row',
         backgroundColor: '#c9c9c9' 
     },
     period: {
+        paddingVertical: 8,
+        borderRadius: 10,
         flex: 6,
         borderRightColor: '#fff',
         borderRightWidth: 1

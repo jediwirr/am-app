@@ -5,9 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import MenuScreen from '../screens/Menu';
 import DiaryScreen from '../screens/Diary';
 import MarksScreen from '../screens/Marks';
-import LoadsScreen from '../screens/Loads';
 import TimetableScreen from '../screens/Timetable';
-
+import {LoadsNavigator} from "./LoadsNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -68,8 +67,8 @@ export const MainNavigator = () => {
                     }}
                 />
                 <Tab.Screen
-                    name="Загрузка"
-                    component={LoadsScreen}
+                    name="LoadsNavigator"
+                    component={LoadsNavigator}
                     options={{
                         tabBarIcon: () => (
                             <Ionicons 

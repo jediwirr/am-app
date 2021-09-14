@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Text, View, ScrollView, Modal, Pressable, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
+import {Text, View, ScrollView, Modal, Pressable, TouchableOpacity, SafeAreaView} from 'react-native';
 import { Button } from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,7 +23,7 @@ const DiaryScreen = () => {
     const set_m = (month_num, month) => dispatch({type: 'SET_MONTH', month_num,  month});
     const set_d = (day) => dispatch({type: 'SET_DAY', day});
     const toggleCalendar = () => dispatch({type: 'TOGGLE_CALENDAR'});
-    const toggleLessonInfo = () => dispatch({type: 'TOGGLE_LESSON_INFO'});
+    const toggleLessonInfo = (lesson) => dispatch({type: 'TOGGLE_LESSON_INFO', lesson});
 
     const d = useSelector(state => state.date.stringDay);
     const m = useSelector(state => state.date.stringMonth);
@@ -69,7 +69,6 @@ const DiaryScreen = () => {
         })
             .then(response => response.json())
             .then(response => {
-                // const l = response.lessons.map(lesson => lesson)
 
                 setLessons(response.lessons);
             })
@@ -129,7 +128,7 @@ const DiaryScreen = () => {
     }
 
     return (
-        <View>
+        <SafeAreaView>
 
             <Modal
                 animationType='slide'
@@ -184,32 +183,50 @@ const DiaryScreen = () => {
                 {lessons.map(lesson =>
                     <TouchableOpacity
                         key={lesson.lesson_id}
-                        style={{padding: 10, borderWidth: 1, borderColor: 'gray'}}
-                        onPress={() => console.log('lesson')}
+                        style={
+                            {
+                                margin: 10,
+                                paddingBottom: 10,
+                                borderBottomWidth: 1,
+                                borderBottomColor: 'gray'
+                            }
+                        }
+                        onPress={() => toggleLessonInfo(lesson)}
                     >
 
                         <Modal
                             animationType='slide'
                             visible={isLesson}
-                            transparent={false}
                         >
                             <Lesson />
                         </Modal>
 
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Text style={{fontWeight: 'bold'}}>{lesson.subject_name}</Text>
-                            <Text style={{color: 'green', paddingHorizontal: 15, fontSize: 16}}>{lesson.value}</Text>
-                        </View>
+                        <View
+                            style={
+                                {
+                                    paddingLeft: 10,
+                                    borderLeftWidth: 3,
+                                    borderLeftColor: lessons.indexOf(lesson) % 2 === 0 ? 'blue' : 'red'
+                                }
+                            }
+                        >
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Text style={{fontWeight: 'bold'}}>{lesson.subject_name}</Text>
+                                <Text style={{color: 'green', paddingHorizontal: 15, fontSize: 16}}>{lesson.value}</Text>
+                            </View>
 
-                        <Text>{lesson.homework}</Text>
-                        <Text
-                            style={{color: lesson.comment_type === 1 ? 'green' : 'red'}}
-                        >{lesson.comment}</Text>
-                        <Text>Файлы({lesson.numrows_files_lesson})</Text>
+                            <Text>{lesson.homework}</Text>
+                            <Text
+                                style={{color: lesson.comment_type === 1 ? 'green' : 'red'}}
+                            >{lesson.comment}</Text>
+                            <Text>Файлы({lesson.numrows_files_lesson})</Text>
+                        </View>
                     </TouchableOpacity>
                 )}
+                <View style={{padding: 50}}>
+                </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     )
 }
 
