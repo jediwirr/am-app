@@ -64,14 +64,17 @@ const DiaryScreen = () => {
     useEffect(() => {
         setLessons([]);
 
-        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/open_diary.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&date_lesson=${date_lesson}`, {
-            method: 'GET'
-        })
-            .then(response => response.json())
-            .then(response => {
-
-                setLessons(response.lessons);
+        const fetchData = async (url) => {
+            await fetch(url, {
+                method: 'GET'
             })
+                .then(response => response.json())
+                .then(response => setLessons(response.lessons))
+                .catch(error => console.log(error))
+        }
+
+        fetchData(`https://diary.alma-mater-spb.ru/e-journal/api/open_diary.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&date_lesson=${date_lesson}`)
+
     }, [date])
 
     const getNextMonth = () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, ScrollView, Text, TouchableOpacity, Modal} from "react-native";
 
 import { styles, theme, theme_text } from '../components/Style';
@@ -25,7 +25,16 @@ const LoadDetails = () => {
             </Modal>
 
             <View>
-                <Text style={{padding: 10, textAlign: 'center', fontSize: 18, fontWeight: 'bold'}}>
+                <Text
+                    style={
+                        {
+                            padding: 10,
+                            textAlign: 'center',
+                            fontSize: 18,
+                            fontWeight: 'bold'
+                        }
+                    }
+                >
                     {name}
                 </Text>
             </View>
@@ -48,20 +57,24 @@ const LoadDetails = () => {
                         {item.data_lesson}
                     </Text>
                     <View>
-                        <Text style={{paddingLeft: 10, marginBottom: 5, fontWeight: 'bold'}}>
-                            {item.name_lesson}
-                        </Text>
                         <Text style={{paddingLeft: 10}}>
                             {item.homework}
                         </Text>
-                        <Text style={
-                            {
-                                paddingLeft: 10,
-                                fontStyle: 'italic',
-                                color: item.answer_student.length === 0 ? 'black' : 'red'
+                        <Text
+                            style={
+                                {
+                                    paddingLeft: 10,
+                                    paddingTop: 10,
+                                    fontStyle: 'italic',
+                                    color: item.answer_student.length === 0 ? 'black' : 'red'
+                                }
                             }
-                        }>
-                            {item.answer_student.length === 0 ? 'Нет загруженных файлов' : `Загруженных файлов - ${item.answer_student.length}`}
+                        >
+                            {
+                                item.answer_student.length === 0
+                                ? 'Нет загруженных файлов'
+                                : `Загруженных файлов - ${item.answer_student.length}`
+                            }
                         </Text>
                     </View>
                 </TouchableOpacity>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import { 
     TextInput, 
     Text, 
@@ -36,7 +36,7 @@ const AuthScreen = () => {
             ? Alert.alert('Введите логин и пароль')
             : Alert.alert('Вы ввели неверный логин или пароль')
 
-            console.log(obj)
+            console.log(response)
         })
         .catch(error => console.log(error))
     }

@@ -8,8 +8,10 @@ const LoadsScreen = ({navigation}) => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
     const user = useSelector(state => state.auth.user);
     const userData = useSelector(state => state.auth.userData);
+
     const dispatch = useDispatch();
-    const loadSubject = (payload, name) => dispatch({type: 'LOAD_SUBJECT', payload, name})
+    const loadSubject = (payload, name) => dispatch({type: 'LOAD_SUBJECT', payload, name});
+
     const [subjects, setSubjects] = useState([]);
 
     useEffect(() => {
@@ -31,6 +33,7 @@ const LoadsScreen = ({navigation}) => {
             .then(response =>
                 {
                     loadSubject(response.lessons, name)
+                    console.log(response.lessons)
                     navigation.navigate('LoadDetails')
                 }
             )

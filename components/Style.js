@@ -112,6 +112,11 @@ export const styles = StyleSheet.create({
     lessonInfo: {
         padding: 5,
         fontSize: 18
+    },
+    detailsHeader: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center'
     }
   });
 

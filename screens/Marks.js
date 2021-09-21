@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { styles, theme, styles_dark } from '../components/Style';
 
@@ -9,8 +9,6 @@ const MarksScreen = () => {
     const userData = useSelector(state => state.auth.userData);
     const user = useSelector(state => state.auth.user);
     const periods = ['1', '2', 'I', '3', '4', 'II'];
-    // const dispatch = useDispatch();
-    // const loadMarks = (payload) => dispatch({type: 'LOAD_MARKS', payload});
 
     const [subjects, setSubjects] = useState('');
     const [term, setTerm] = useState('1');
@@ -47,7 +45,7 @@ const MarksScreen = () => {
                 {marks}
             </Text>
         </View>
-    )
+    );
 
     const renderItem = ({ item }) => (
             <Item
@@ -97,7 +95,7 @@ const MarksScreen = () => {
                     : theme.light
             }>
                 <Header />
-                <FlatList 
+                <FlatList
                     data={subjects}
                     renderItem={renderItem}
                     keyExtractor={item => item.subject_id}

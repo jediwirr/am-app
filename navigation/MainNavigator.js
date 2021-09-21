@@ -7,6 +7,7 @@ import DiaryScreen from '../screens/Diary';
 import MarksScreen from '../screens/Marks';
 import TimetableScreen from '../screens/Timetable';
 import {LoadsNavigator} from "./LoadsNavigator";
+import {TimetableNavigator} from "./TimetableNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -81,8 +82,8 @@ export const MainNavigator = () => {
                     }}
                 />
                 <Tab.Screen
-                    name="Расписание"
-                    component={TimetableScreen}
+                    name="TimetableNavigator"
+                    component={TimetableNavigator}
                     options={{
                         tabBarIcon: () => (
                             <Ionicons 
