@@ -23,7 +23,7 @@ const LoadFile = () => {
 
     const handleLink = (url) => {
         Linking.openURL(url);
-    }
+    };
 
     const refreshLesson = async () => {
         await fetch(`https://diary.alma-mater-spb.ru/e-journal/api/update_lesson.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&lesson_id=${lesson.lesson_id}`, {
@@ -35,8 +35,8 @@ const LoadFile = () => {
                         setFiles(item.answer_student)
                 )
             })
-            .catch(error => console.log(error))
-    }
+            .catch(error => console.log(error));
+    };
 
     const pickFiles = async () => {
 
@@ -80,15 +80,15 @@ const LoadFile = () => {
         } catch (error) {
                 throw error
         }
-    }
+    };
 
     const deleteFile = async (fileID) => {
         await fetch(`https://diary.alma-mater-spb.ru/e-journal/api/delete_file.php?clue=${userData.clue}&user_id=${userData.user_id}&file_id=${fileID}`, {
             method: 'DELETE'
         })
             .then(response => response.json())
-            .then(() => refreshLesson())
-    }
+            .then(() => refreshLesson());
+    };
 
     const RenderLesson = () => (
         lesson.answer_student.map(item =>
@@ -118,37 +118,37 @@ const LoadFile = () => {
                 </Button>
             </View>
         )
-    )
+    );
 
-    const RenderFiles = () => (
-        files.map(item =>
-            <View key={item.file_id} style={{flexDirection: 'row'}}>
-                <Text
-                    style={
-                        {
-                            color: '#0033FF',
-                            fontSize: 16,
-                            paddingVertical: 15,
-                            borderBottomWidth: 1,
-                            borderBottomColor: 'gray'
-                        }
-                    }
-                    onPress={() => handleLink(item.url)}
-                >
-                    {item.title}
-                </Text>
-                <Button
-                    onPress={() => deleteFile(item.file_id)}
-                >
-                    <Ionicons
-                        name='close-outline'
-                        size={25}
-                        color='red'
-                    />
-                </Button>
-            </View>
-        )
-    )
+    // const RenderFiles = () => (
+    //     files.map(item =>
+    //         <View key={item.file_id} style={{flexDirection: 'row'}}>
+    //             <Text
+    //                 style={
+    //                     {
+    //                         color: '#0033FF',
+    //                         fontSize: 16,
+    //                         paddingVertical: 15,
+    //                         borderBottomWidth: 1,
+    //                         borderBottomColor: 'gray'
+    //                     }
+    //                 }
+    //                 onPress={() => handleLink(item.url)}
+    //             >
+    //                 {item.title}
+    //             </Text>
+    //             <Button
+    //                 onPress={() => deleteFile(item.file_id)}
+    //             >
+    //                 <Ionicons
+    //                     name='close-outline'
+    //                     size={25}
+    //                     color='red'
+    //                 />
+    //             </Button>
+    //         </View>
+    //     )
+    // )
 
     return (
        <SafeAreaView>
@@ -194,7 +194,7 @@ const LoadFile = () => {
                CLOSE
            </Button>
        </SafeAreaView>
-    )
-}
+    );
+};
 
 export default LoadFile;

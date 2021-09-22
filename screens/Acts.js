@@ -13,7 +13,7 @@ const ActsScreen = () => {
         })
             .then(response => response.json())
             .then(response => setActs(response.acts))
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
     }, []);
 
     const Header = () => (

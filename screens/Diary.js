@@ -42,7 +42,7 @@ const DiaryScreen = () => {
         }
 
         return m;
-    }
+    };
 
     const get_day = () => {
         for (let i=0; i<7; i++) {
@@ -52,14 +52,14 @@ const DiaryScreen = () => {
         }
 
         return d;
-    }
+    };
 
     const date_lesson = `${year}-${month < 10 ? '0' + (month + 1).toString() : month + 1}-${date < 10 ? '0' + date.toString() : date}`;
 
     useEffect(() => {
         get_day();
         get_month();
-    }, [])
+    }, []);
 
     useEffect(() => {
         setLessons([]);
@@ -70,18 +70,18 @@ const DiaryScreen = () => {
             })
                 .then(response => response.json())
                 .then(response => setLessons(response.lessons))
-                .catch(error => console.log(error))
-        }
+                .catch(error => console.log(error));
+        };
 
-        fetchData(`https://diary.alma-mater-spb.ru/e-journal/api/open_diary.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&date_lesson=${date_lesson}`)
+        fetchData(`https://diary.alma-mater-spb.ru/e-journal/api/open_diary.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&date_lesson=${date_lesson}`);
 
-    }, [date])
+    }, [date, user]);
 
     const getNextMonth = () => {
         let i=months.indexOf(m);
         setDate(1);
         m === months[11] ? set_m(0, months[0]) : set_m(month + 1, months[i + 1]);
-    }
+    };
 
     const getPrevMonth = () => {
         let i=months.indexOf(m);
@@ -100,7 +100,7 @@ const DiaryScreen = () => {
         }
 
         m === months[0] ? set_m(11, months[11]) : set_m(month - 1, months[i - 1]);
-    }
+    };
 
     const getNextDate = () => {
 
@@ -122,13 +122,13 @@ const DiaryScreen = () => {
         }
 
         d === days[6] ? set_d(days[0]) : set_d(days[days.indexOf(d) + 1]);
-    }
+    };
 
     const getPrevDate = () => {
 
         date === 1 ? getPrevMonth() : setDate(date - 1);
         d === days[0] ? set_d(days[6]) : set_d(days[days.indexOf(d) - 1]);
-    }
+    };
 
     return (
         <SafeAreaView>
@@ -230,7 +230,7 @@ const DiaryScreen = () => {
                 </View>
             </ScrollView>
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default DiaryScreen;

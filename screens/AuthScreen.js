@@ -14,7 +14,7 @@ import { styles } from '../components/Style';
 
 const AuthScreen = () => {
     const dispatch = useDispatch();
-    const log_in = (user, user_type, user_data) => dispatch({type: 'LOG_IN', user, user_type, user_data});
+    const log_in = (students, user, user_type, user_data) => dispatch({type: 'LOG_IN', students, user, user_type, user_data});
     const [login, onChangeLogin] = useState('');
     const [password, onChangePassword] = useState('');
 
@@ -31,15 +31,13 @@ const AuthScreen = () => {
             }
 
             response.status === 0
-            ? response.student.map(item => log_in(item, response.type, obj))
+            ? log_in(response.student, response.student[0], response.type, obj)
             : login === '' || password === ''
             ? Alert.alert('Введите логин и пароль')
-            : Alert.alert('Вы ввели неверный логин или пароль')
-
-            console.log(response)
+            : Alert.alert('Вы ввели неверный логин или пароль');
         })
-        .catch(error => console.log(error))
-    }
+        .catch(error => console.log(error));
+    };
 
     return (
         <SafeAreaView style={{ ...styles.container, backgroundColor: '#00656d' }}>
@@ -77,7 +75,7 @@ const AuthScreen = () => {
                 Вход
             </Button>
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default AuthScreen;

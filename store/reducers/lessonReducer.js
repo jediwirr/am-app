@@ -14,6 +14,13 @@ export const lessonReducer = (state=initialState, action) => {
                 lesson: action.lesson
             }
 
+        case 'CHANGE_LESSON':
+
+            return {
+                ...state,
+                lesson: action.payload
+            }
+
         case 'SET_LESSONS':
 
             return {

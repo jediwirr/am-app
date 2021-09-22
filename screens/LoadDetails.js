@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React  from 'react';
 import {View, ScrollView, Text, TouchableOpacity, Modal} from "react-native";
 
 import { styles, theme, theme_text } from '../components/Style';
@@ -80,7 +80,7 @@ const LoadDetails = () => {
                 </TouchableOpacity>
             )}
         </ScrollView>
-    )
-}
+    );
+};
 
 export default LoadDetails;

@@ -8,6 +8,7 @@ const TimetableScreen = ({navigation}) => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
     const user = useSelector(state => state.auth.user);
     const userData = useSelector(state => state.auth.userData);
+    const lesson = useSelector(state => state.lesson.lesson);
 
     const dispatch = useDispatch();
     const changeLesson = (payload) => dispatch({type: 'CHANGE_LESSON', payload});
@@ -25,7 +26,8 @@ const TimetableScreen = ({navigation}) => {
                 console.log(response.schedule)
                 setSchedule(response.schedule)
             })
-    }, []);
+            .catch(error => console.log(error));
+    }, [user, lesson]);
 
     const Header = () => (
         <View style={styles.period_list_container}>
@@ -100,7 +102,7 @@ const TimetableScreen = ({navigation}) => {
                 keyExtractor={item => item.number_lesson + item.week_day}
             />
         </View>
-    )
-}
+    );
+};
 
 export default TimetableScreen;

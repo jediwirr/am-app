@@ -1,15 +1,34 @@
 import React, {useState} from 'react';
 import {View, TextInput, Dimensions} from 'react-native';
 import {Button} from 'react-native-paper';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {styles} from "../components/Style";
 
-const TimetableDetail = () => {
+const TimetableDetail = ({navigation}) => {
+    const user = useSelector(state => state.auth.user);
+    const userData = useSelector(state => state.auth.userData);
     const lesson = useSelector(state => state.tt.lesson);
-    const {width, height} = Dimensions.get('screen');
-    const [isFocused, setIsFocused] = useState(false);
+    const {width} = Dimensions.get('screen');
     const [text, setText] = useState(lesson.subject);
+
+    const dispatch = useDispatch();
+    const changeLesson = (payload) => dispatch({type: 'CHANGE_LESSON', payload});
+
+    const goBack = () => navigation.navigate('Расписание');
+
+    const setChange = (item) => {
+        changeLesson(item);
+
+        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/edit_schedule.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&week_day=${lesson.week_day}&subject=${item}&number_lesson=${lesson.number_lesson}`, {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+
+        goBack();
+    };
 
     return (
       <View style={styles.container}>
@@ -19,18 +38,28 @@ const TimetableDetail = () => {
                     padding: 10,
                     borderWidth: 1,
                     borderColor: 'gray',
+                    borderRadius: 50,
+                    textAlign: 'center',
                     width: width / 1.3
                 }
             }
             value={text}
             onChangeText={text => setText(text)}
           />
-          <Button style={{marginTop: 35}}
-            color='black'
-            onPress={() => console.log('uefi')}
-          >
-              Сохранить
-          </Button>
+          <View style={{flexDirection: 'row'}}>
+              <Button style={{marginTop: 35}}
+                      color='black'
+                      onPress={() => setChange(text)}
+              >
+                  Сохранить
+              </Button>
+              <Button style={{marginTop: 35}}
+                      color='black'
+                      onPress={() => goBack()}
+              >
+                  Вернуться
+              </Button>
+          </View>
       </View>
     );
 };

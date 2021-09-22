@@ -1,8 +1,8 @@
 const initialState = {
     isSignedIn: false,
-    user: '',
-    userType: '',
-
+    students: [],
+    user: {},
+    userType: ''
 }
 
 export const authReducer = (state=initialState, action) => {
@@ -12,9 +12,25 @@ export const authReducer = (state=initialState, action) => {
             return {
                 ...state,
                 isSignedIn: true,
+                students: action.students,
                 user: action.user,
                 userType: action.user_type,
                 userData: action.user_data
+            }
+
+        case 'SET_USER':
+            let st;
+
+            state.students.forEach(
+                student =>
+                    student.name === action.name && student.surname === action.surname
+                    ? st = student
+                    : ''
+            )
+
+            return {
+                ...state,
+                user: st
             }
 
         case 'LOG_OUT':

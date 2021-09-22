@@ -21,8 +21,8 @@ const MarksScreen = () => {
         .then(response => {
             setSubjects(response.marks)
         })
-        .catch(error => console.log(error))
-    }, [])
+        .catch(error => console.log(error));
+    }, [user]);
 
     const Item = ({ title, marks }) => (
         <View style={{ ...styles.listItemContainer, flexDirection: 'column' }}>
@@ -66,7 +66,7 @@ const MarksScreen = () => {
                     : item.stringMarks[0]
                 }
             />
-    )
+    );
 
     const Header = () => (
         <View style={styles.period_list_container}>
@@ -86,7 +86,7 @@ const MarksScreen = () => {
                 </TouchableOpacity>
             )}
         </View>
-    )
+    );
 
     return (
         <SafeAreaView style={
@@ -104,7 +104,7 @@ const MarksScreen = () => {
                     }
                 />
             </SafeAreaView>
-    )
-}
+    );
+};
 
 export default MarksScreen;

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { View, SafeAreaView, Text } from 'react-native';
+import {View, SafeAreaView, Text} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from "react-redux";
 import * as Linking from 'expo-linking';
 
-import { styles } from "../components/Style";
+import {styles} from "../components/Style";
 
 const Lesson = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Lesson = () => {
 
     const handleLink = (url) => {
         Linking.openURL(url);
-    }
+    };
 
 
     return (
@@ -95,6 +95,6 @@ const Lesson = () => {
             </Button>
         </SafeAreaView>
     );
-}
+};
 
 export default Lesson;

@@ -26,10 +26,9 @@ const AdsScreen = () => {
             .then(response => response.json())
             .then(response => {
                 setAds(response)
-                console.log(response)
             })
-            .catch(error => console.log(error))
-    }, [week])
+            .catch(error => console.log(error));
+    }, [week, user]);
 
     const Item = ({day, ad}) => (
         <View>

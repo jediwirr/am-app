@@ -48,7 +48,7 @@ const LogOutScreen = ({navigation}) => {
             </View>
 
         </ScrollView>
-    )
-}
+    );
+};
 
 export default LogOutScreen;

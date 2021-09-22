@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { Text, ScrollView } from 'react-native';
+import {View, Text, FlatList, Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
-import { styles, theme, theme_text } from '../components/Style';
+import {styles, theme, theme_text} from '../components/Style';
 
 const LoadsScreen = ({navigation}) => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
@@ -14,6 +14,8 @@ const LoadsScreen = ({navigation}) => {
 
     const [subjects, setSubjects] = useState([]);
 
+    const {width} = Dimensions.get('screen');
+
     useEffect(() => {
         fetch(`https://diary.alma-mater-spb.ru/e-journal/api/open_marks.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}`, {
             method: 'GET'
@@ -22,8 +24,8 @@ const LoadsScreen = ({navigation}) => {
             .then(response => {
                 setSubjects(response.marks)
             })
-            .catch(error => console.log(error))
-    }, [])
+            .catch(error => console.log(error));
+    }, [user]);
 
     const selectLesson = (id, name) => {
         fetch(`https://diary.alma-mater-spb.ru/e-journal/api/open_homework.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&quarter=1&subject_id=${id}`, {
@@ -33,38 +35,48 @@ const LoadsScreen = ({navigation}) => {
             .then(response =>
                 {
                     loadSubject(response.lessons, name)
-                    console.log(response.lessons)
                     navigation.navigate('LoadDetails')
                 }
             )
-    }
+            .catch(error => console.log(error))
+    };
 
-    return (
-        <ScrollView  style={
-            darkTheme
-            ? theme.dark
-            : theme.light
-        }>
-            {subjects.map(item =>
-                <Text style={
-                    {
-                        ...darkTheme
+    const Item = ({subject, id}) => (
+        <View
+            style={
+                {
+                    padding: 15,
+                    margin: 5,
+                    backgroundColor: '#dcdcdc',
+                    borderRadius: 50
+                }
+            }>
+            <Text style={
+                {
+                    ...darkTheme
                         ? theme_text.dark
                         : theme_text.light,
-                        padding: 15,
-                        borderWidth: 1,
-                        borderColor: 'gray',
-                        margin: 5
-                    }
                 }
-                key={item.subject_id}
-                onPress={() => selectLesson(item.subject_id, item.subject)}
-                >
-                    {item.subject}
-                </Text>
-            )}
-        </ScrollView>
-    )
-}
+            }
+                  onPress={() => selectLesson(id, subject)}
+            >
+                {subject}
+            </Text>
+        </View>
+
+    );
+
+    const renderItem = ({item}) => {
+        return  <Item subject={item.subject} id={item.subject_id} />
+    };
+
+    return (
+        <FlatList
+            data={subjects}
+            renderItem={renderItem}
+            keyExtractor={item => item.subject_id}
+        />
+    );
+};
 
 export default LoadsScreen;

@@ -31,7 +31,7 @@ const SettingsScreen = () => {
                 />
             </View>
         </ScrollView>
-    )
-}
+    );
+};
 
 export default SettingsScreen;
