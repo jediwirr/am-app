@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, Text} from 'react-native';
+import React from 'react';
+import {View, SafeAreaView, Text, Dimensions} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from "react-redux";
 import * as Linking from 'expo-linking';
@@ -13,6 +13,7 @@ const Lesson = () => {
     const m = useSelector(state => state.date.stringMonth);
     const date = useSelector(state => state.date.stringDate);
     const toggleLessonInfo = (lesson) => dispatch({type: 'TOGGLE_LESSON_INFO', lesson});
+    const {width} = Dimensions.get('screen');
 
     const handleLink = (url) => {
         Linking.openURL(url);
@@ -87,12 +88,15 @@ const Lesson = () => {
                 </View>
             </View>
 
-            <Button
-                style={{marginTop: 50}}
-                onPress={() => toggleLessonInfo()}
-            >
-                CLOSE
-            </Button>
+            <View style={{marginLeft: width / 2.5, width: width / 6}}>
+                <Button style={{marginTop: 35, borderRadius: 50}}
+                        mode='contained'
+                        onPress={() => toggleLessonInfo({})}
+                >
+                    Закрыть
+                </Button>
+            </View>
+
         </SafeAreaView>
     );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, Text, View, Alert} from 'react-native';
+import {SafeAreaView, Text, View, Alert, Dimensions} from 'react-native';
 import {Button} from 'react-native-paper'
 import {useDispatch, useSelector} from "react-redux";
 import * as Linking from 'expo-linking';
@@ -20,6 +20,8 @@ const LoadFile = () => {
     const name = useSelector(state => state.loads.subjectName);
     const lesson = useSelector(state => state.loads.selectedLesson);
     const files = useSelector(state => state.loads.files);
+
+    const {width} = Dimensions.get('screen');
 
     const handleLink = (url) => {
         Linking.openURL(url);
@@ -120,36 +122,6 @@ const LoadFile = () => {
         )
     );
 
-    // const RenderFiles = () => (
-    //     files.map(item =>
-    //         <View key={item.file_id} style={{flexDirection: 'row'}}>
-    //             <Text
-    //                 style={
-    //                     {
-    //                         color: '#0033FF',
-    //                         fontSize: 16,
-    //                         paddingVertical: 15,
-    //                         borderBottomWidth: 1,
-    //                         borderBottomColor: 'gray'
-    //                     }
-    //                 }
-    //                 onPress={() => handleLink(item.url)}
-    //             >
-    //                 {item.title}
-    //             </Text>
-    //             <Button
-    //                 onPress={() => deleteFile(item.file_id)}
-    //             >
-    //                 <Ionicons
-    //                     name='close-outline'
-    //                     size={25}
-    //                     color='red'
-    //                 />
-    //             </Button>
-    //         </View>
-    //     )
-    // )
-
     return (
        <SafeAreaView>
            <Text style={styles.detailsHeader}>Д/З</Text>
@@ -188,11 +160,14 @@ const LoadFile = () => {
                 </Text>
                 <RenderLesson />
             </View>
-           <Button
-               onPress={() => selectLesson({})}
-           >
-               CLOSE
-           </Button>
+           <View style={{marginLeft: width / 2.5, width: width / 6}}>
+               <Button style={{marginTop: 35, borderRadius: 50}}
+                       mode='contained'
+                       onPress={() => selectLesson({})}
+               >
+                   Закрыть
+               </Button>
+           </View>
        </SafeAreaView>
     );
 };

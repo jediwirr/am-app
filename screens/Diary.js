@@ -151,7 +151,7 @@ const DiaryScreen = () => {
                     onPress={() => getPrevDate()}
                 >
                     <Ionicons
-                        name='arrow-back'
+                        name='chevron-back-outline'
                         size={25}
                         color={darkTheme ? '#fff': '#000'}
                     />
@@ -175,7 +175,7 @@ const DiaryScreen = () => {
                     onPress={() => getNextDate()}
                 >
                     <Ionicons
-                        name='arrow-forward'
+                        name='chevron-forward-outline'
                         size={25}
                         color={darkTheme ? '#fff': '#000'}
                     />

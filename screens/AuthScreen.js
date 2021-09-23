@@ -8,9 +8,11 @@ import {
     Alert,
     SafeAreaView
 } from 'react-native';
-import {  Button } from 'react-native-paper';
+import { Button} from 'react-native-paper';
 
-import { styles } from '../components/Style';
+import {styles} from '../components/Style';
+import Links from '../components/Links';
+
 
 const AuthScreen = () => {
     const dispatch = useDispatch();
@@ -74,6 +76,9 @@ const AuthScreen = () => {
             >
                 Вход
             </Button>
+
+                <Links col='#fff' />
+
         </SafeAreaView>
     );
 };

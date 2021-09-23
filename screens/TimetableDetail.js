@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TextInput, Dimensions} from 'react-native';
+import {View, Text, TextInput, Dimensions} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from "react-redux";
 
@@ -15,7 +15,7 @@ const TimetableDetail = ({navigation}) => {
     const dispatch = useDispatch();
     const changeLesson = (payload) => dispatch({type: 'CHANGE_LESSON', payload});
 
-    const goBack = () => navigation.navigate('Расписание');
+    const goBack = () => navigation.goBack();
 
     const setChange = (item) => {
         changeLesson(item);
@@ -32,6 +32,9 @@ const TimetableDetail = ({navigation}) => {
 
     return (
       <View style={styles.container}>
+          <Text
+            style={{marginBottom: 30, fontSize: 18, fontWeight: 'bold'}}
+          >Редактирование</Text>
           <TextInput
             style={
                 {
@@ -46,15 +49,15 @@ const TimetableDetail = ({navigation}) => {
             value={text}
             onChangeText={text => setText(text)}
           />
-          <View style={{flexDirection: 'row'}}>
-              <Button style={{marginTop: 35}}
-                      color='black'
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', width: width / 2}}>
+              <Button style={{marginTop: 35, borderRadius: 50}}
+                      mode='contained'
                       onPress={() => setChange(text)}
               >
                   Сохранить
               </Button>
-              <Button style={{marginTop: 35}}
-                      color='black'
+              <Button style={{marginTop: 35, borderRadius: 50}}
+                      mode='contained'
                       onPress={() => goBack()}
               >
                   Вернуться

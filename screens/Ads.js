@@ -85,7 +85,7 @@ const AdsScreen = () => {
                     onPress={() => setWeek(week + 1)}
                 >
                     <Ionicons
-                        name='arrow-back'
+                        name='chevron-back-outline'
                         size={25}
                         color={darkTheme ? '#fff': '#000'}
                     />
@@ -99,7 +99,7 @@ const AdsScreen = () => {
                     onPress={() => setWeek(week - 1)}
                 >
                     <Ionicons
-                        name='arrow-forward'
+                        name='chevron-back-outline'
                         size={25}
                         color={darkTheme ? '#fff': '#000'}
                     />
