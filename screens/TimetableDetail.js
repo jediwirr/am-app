@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Dimensions} from 'react-native';
+import {View, Text, TextInput, Dimensions, Platform} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from "react-redux";
 
@@ -49,7 +49,13 @@ const TimetableDetail = ({navigation}) => {
             value={text}
             onChangeText={text => setText(text)}
           />
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', width: width / 2}}>
+          <View style={
+              {
+                  flexDirection: Platform.OS === 'ios' ? 'row' : 'column',
+                  justifyContent: 'space-between',
+                  width: width / 2
+              }
+          }>
               <Button style={{marginTop: 35, borderRadius: 50}}
                       mode='contained'
                       onPress={() => setChange(text)}

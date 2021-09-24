@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import { 
-    TextInput, 
-    Text, 
-    View, 
-    Image,   
+import {
+    TextInput,
+    Text,
+    View,
+    Image,
     Alert,
-    SafeAreaView
+    KeyboardAvoidingView,
+    Platform
 } from 'react-native';
 import { Button} from 'react-native-paper';
 
@@ -42,25 +43,28 @@ const AuthScreen = () => {
     };
 
     return (
-        <SafeAreaView style={{ ...styles.container, backgroundColor: '#00656d' }}>
+        <View
+            style={{ ...styles.container, backgroundColor: '#00656d' }}
+        >
+
             <View style={{ flexDirection: 'row', marginBottom: 15 }}>
                 <Text style={styles.logoText}>Гимназия «Альма Матер»</Text>
-                <Image 
+                <Image
                     style={styles.logo}
                     source={require('../assets/gimnazist.png')}
                 />
             </View>
             <Text style={styles.greeting}>Добро пожаловать!</Text>
             <View>
-                <TextInput 
-                    style={styles.input} 
+                <TextInput
+                    style={styles.input}
                     onChangeText={login => onChangeLogin(login)}
                     value={login}
                     placeholder='Введите логин'
                     autoCapitalize='none'
                 />
-                <TextInput 
-                    style={styles.input} 
+                <TextInput
+                    style={styles.input}
                     onChangeText={password => onChangePassword(password)}
                     value={password}
                     placeholder='Введите пароль'
@@ -77,9 +81,9 @@ const AuthScreen = () => {
                 Вход
             </Button>
 
-                <Links col='#fff' />
+            <Links col='#fff' />
 
-        </SafeAreaView>
+        </View>
     );
 };
 

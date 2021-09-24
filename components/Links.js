@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, View, Dimensions} from "react-native";
-import {Button} from "react-native-paper";
 import {Ionicons} from "@expo/vector-icons";
 import * as Linking from "expo-linking";
 
@@ -19,22 +18,20 @@ const Links = ({col}) => {
 
     return (
         <View style={{marginTop: height / 2.5}}>
-            <Text style={{fontSize: 16, color: col, textAlign: 'center', marginBottom: 10}}>
+            <Text style={{fontSize: 16, color: col, textAlign: 'center', marginBottom: 15}}>
                 Ссылки на социальные сети:
             </Text>
-            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
                 {socialMedia.map(item =>
-                    <Button key={item.icon}
-                            onPress={() => handleLink(item.url)}
-                    >
-                        <View style={{backgroundColor: '#fff', borderRadius: 50, padding: 5}}>
-                            <Ionicons key={item.icon}
-                                      name={item.icon}
-                                      size={25}
-                                      color={item.color}
+                        <View key={item.icon} style={{backgroundColor: '#fff', borderRadius: 50, padding: 5}}>
+                            <Ionicons
+                                key={item.icon}
+                                name={item.icon}
+                                size={25}
+                                color={item.color}
+                                onPress={() => handleLink(item.url)}
                             />
                         </View>
-                    </Button>
                 )}
             </View>
         </View>

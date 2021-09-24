@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, SafeAreaView, Text, Dimensions} from 'react-native';
+import {View, SafeAreaView, Text, Dimensions, Platform} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from "react-redux";
 import * as Linking from 'expo-linking';
@@ -88,7 +88,11 @@ const Lesson = () => {
                 </View>
             </View>
 
-            <View style={{marginLeft: width / 2.5, width: width / 6}}>
+            <View style={
+                Platform.OS === 'ios'
+                    ? {marginLeft: width / 2.5, width: width / 6}
+                    : {marginLeft: width / 4, width: width / 2}
+            }>
                 <Button style={{marginTop: 35, borderRadius: 50}}
                         mode='contained'
                         onPress={() => toggleLessonInfo({})}
