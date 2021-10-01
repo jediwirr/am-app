@@ -17,11 +17,15 @@ const LogOutScreen = ({navigation}) => {
             : theme.light
         } contentContainerStyle={styles.container}>
 
-            <Text style={
-                darkTheme 
-                ? {color: '#fff', fontSize: 18} 
-                : {color: '#000', fontSize: 18}
-            }>Вы уверены, что хотите выйти из профиля?</Text>
+            <Text
+                style={
+                    darkTheme
+                    ? {color: '#fff', fontSize: 18}
+                    : {color: '#000', fontSize: 18}
+                }
+            >
+                Вы уверены, что хотите выйти из профиля?
+            </Text>
 
             <View style={styles.modalPanel}>
                 <Button 
@@ -32,7 +36,9 @@ const LogOutScreen = ({navigation}) => {
                     }
                     color='blue'
                     onPress={log_out}
-                >ДА</Button>
+                >
+                    ДА
+                </Button>
 
                 <Button 
                     mode={
@@ -44,7 +50,9 @@ const LogOutScreen = ({navigation}) => {
                     onPress={
                         () => navigation.navigate('Меню')
                     }
-                >НЕТ</Button>
+                >
+                    НЕТ
+                </Button>
             </View>
 
         </ScrollView>

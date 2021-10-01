@@ -19,7 +19,6 @@ const LoadFile = () => {
 
     const name = useSelector(state => state.loads.subjectName);
     const lesson = useSelector(state => state.loads.selectedLesson);
-    const files = useSelector(state => state.loads.files);
 
     const {width} = Dimensions.get('screen');
 
@@ -41,21 +40,22 @@ const LoadFile = () => {
     };
 
     const pickFiles = async () => {
-
-        try {
-            const res = await DocumentPicker.getDocumentAsync();
-
+            const res = await DocumentPicker.getDocumentAsync({
+                type: '*/*',
+                copyToCacheDirectory: false,
+            });
             const data = new FormData();
-            data.append('file', res);
+            data.append('file', {
+                name: res.name,
+                type: '*/*',
+                uri: res.uri
+            });
 
             const uploadFile = async () => {
 
                 await fetch(`https://diary.alma-mater-spb.ru/e-journal/api/upload_file.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&lesson_id=${lesson.lesson_id}`, {
                     method: 'POST',
-                    body: data,
-                    headers: {
-                        'Content-Type': 'form/multipart'
-                    }
+                    body: data
                 })
                     .then(response => response.json())
                     .then(response => {
@@ -71,6 +71,10 @@ const LoadFile = () => {
                             Alert.alert('Произошла ошибка, попробуйте ещё раз');
                         }
                     })
+                    .catch(error => {
+                        console.log(error.message)
+                        throw error
+                    });
             }
 
             if (res.type === 'cancel') {
@@ -78,10 +82,6 @@ const LoadFile = () => {
             } else {
                 await uploadFile();
             }
-
-        } catch (error) {
-                throw error
-        }
     };
 
     const deleteFile = async (fileID) => {
@@ -89,7 +89,11 @@ const LoadFile = () => {
             method: 'DELETE'
         })
             .then(response => response.json())
-            .then(() => refreshLesson());
+            .then(() => refreshLesson())
+            .catch(error => {
+                console.log(error);
+                throw error;
+            });
     };
 
     const RenderLesson = () => (

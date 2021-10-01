@@ -39,7 +39,18 @@ const ActsScreen = () => {
     };
 
     const Header = () => (
-        <Text style={{textAlign: 'center', fontSize: 18, fontWeight: 'bold', marginTop: height / 50}}>Квитанции на оплату</Text>
+        <Text
+            style={
+                {
+                    textAlign: 'center',
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                    marginTop: height / 50
+                }
+            }
+        >
+            Квитанции на оплату
+        </Text>
     );
 
     const Item = ({month, date}) => (

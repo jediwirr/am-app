@@ -133,14 +133,14 @@ const DiaryScreen = () => {
     return (
         <SafeAreaView>
 
-            <Modal
-                animationType='slide'
-                onRequestClose={() => toggleCalendar()}
-                visible={isCalendar}
-                transparent={false}
-            >
-                <Calendar />
-            </Modal>
+            {/*<Modal*/}
+            {/*    animationType='slide'*/}
+            {/*    onRequestClose={() => toggleCalendar()}*/}
+            {/*    visible={isCalendar}*/}
+            {/*    transparent={false}*/}
+            {/*>*/}
+            {/*    <Calendar />*/}
+            {/*</Modal>*/}
 
             <ScrollView style={
                 darkTheme
@@ -158,7 +158,7 @@ const DiaryScreen = () => {
                 </Button>
                 <Pressable
                     style={{ flexDirection: 'column' }}
-                    onPress={() => toggleCalendar()}
+                    onPress={() => console.log('calendar')}
                 >
                     <Text style={
                         darkTheme

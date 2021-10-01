@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, FlatList, View, TouchableOpacity} from 'react-native';
+import {Text, FlatList, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {styles, theme} from '../components/Style';

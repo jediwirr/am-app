@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, Dimensions} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {styles, theme, theme_text} from '../components/Style';
@@ -13,8 +13,6 @@ const LoadsScreen = ({navigation}) => {
     const loadSubject = (payload, name) => dispatch({type: 'LOAD_SUBJECT', payload, name});
 
     const [subjects, setSubjects] = useState([]);
-
-    const {width} = Dimensions.get('screen');
 
     useEffect(() => {
         fetch(`https://diary.alma-mater-spb.ru/e-journal/api/open_marks.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}`, {
@@ -50,7 +48,8 @@ const LoadsScreen = ({navigation}) => {
                     backgroundColor: '#dcdcdc',
                     borderRadius: 50
                 }
-            }>
+            }
+        >
             <Text style={
                 {
                     ...darkTheme

@@ -26,22 +26,28 @@ const MarksScreen = () => {
 
     const Item = ({ title, marks }) => (
         <View style={{ ...styles.listItemContainer, flexDirection: 'column' }}>
-            <Text style={
-                {
-                    color: darkTheme ? '#fff' : '#000',
-                    fontSize: 18,
-                    paddingHorizontal: 15,
-                    paddingBottom: 15,
-                    fontWeight: 'bold'
+            <Text
+                style={
+                    {
+                        color: darkTheme ? '#fff' : '#000',
+                        fontSize: 18,
+                        paddingHorizontal: 15,
+                        paddingBottom: 15,
+                        fontWeight: 'bold'
+                    }
                 }
-            }>{title}</Text>
-            <Text style={
-                {
-                    color: 'green',
-                    paddingHorizontal: 15,
-                    fontSize: 16
+            >
+                {title}
+            </Text>
+            <Text
+                style={
+                    {
+                        color: 'green',
+                        paddingHorizontal: 15,
+                        fontSize: 16
+                    }
                 }
-            }>
+            >
                 {marks}
             </Text>
         </View>
@@ -89,11 +95,13 @@ const MarksScreen = () => {
     );
 
     return (
-        <SafeAreaView style={
+        <SafeAreaView
+            style={
                 darkTheme 
                     ? theme.dark
                     : theme.light
-            }>
+            }
+        >
                 <Header />
                 <FlatList
                     data={subjects}

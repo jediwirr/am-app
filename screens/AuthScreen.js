@@ -49,7 +49,7 @@ const AuthScreen = () => {
                     <Text style={styles.logoText}>Гимназия «Альма Матер»</Text>
                     <Image
                         style={styles.logo}
-                        source={require('../assets/gimnazist.png')}
+                        source={require('../assets/alma.png')}
                     />
                 </View>
                 <Text style={styles.greeting}>Добро пожаловать!</Text>

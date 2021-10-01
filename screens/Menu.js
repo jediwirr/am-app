@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, FlatList, TouchableOpacity, View} from 'react-native';
+import {Text, FlatList, TouchableOpacity, View, Dimensions} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useSelector} from 'react-redux';
 
@@ -9,6 +9,7 @@ import Links from "../components/Links";
 const MenuScreen = ({navigation}) => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
     const userType = useSelector(state => state.auth.userType);
+    const {height} = Dimensions.get('screen');
 
     const menu = [
         {name: 'Объявления', icon: 'mail-outline', type: [1, 2]},
@@ -51,7 +52,11 @@ const MenuScreen = ({navigation}) => {
                 renderItem={renderItem}
                 keyExtractor={item => item.name}
             />
-            <Links col='#000' />
+            <View
+                style={{marginTop: height / 2.5}}
+            >
+                <Links col='#000' />
+            </View>
         </View>
     );
 };
