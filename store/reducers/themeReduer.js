@@ -1,6 +1,6 @@
 const initialState = {
     darkTheme: false
-}
+};
 
 export const themeReducer = (state=initialState, action) => {
     switch(action.type) {
@@ -13,5 +13,5 @@ export const themeReducer = (state=initialState, action) => {
 
         default:
             return state
-    }
-}
+    };
+};

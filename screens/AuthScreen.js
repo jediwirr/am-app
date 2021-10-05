@@ -9,7 +9,7 @@ import {
     KeyboardAvoidingView,
     Dimensions
 } from 'react-native';
-import { Button} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 
 import {styles} from '../components/Style';
 import Links from '../components/Links';
@@ -67,6 +67,7 @@ const AuthScreen = () => {
                         value={password}
                         placeholder='Введите пароль'
                         secureTextEntry={true}
+                        autoCapitalize='none'
                     />
                 </View>
                 <Button

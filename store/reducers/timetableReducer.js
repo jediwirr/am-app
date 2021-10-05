@@ -13,5 +13,5 @@ export const timetableReducer = (state=initialState, action) => {
 
         default:
             return state
-    }
-}
+    };
+};

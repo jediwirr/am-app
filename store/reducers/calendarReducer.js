@@ -1,7 +1,7 @@
 const initialState = {
     openCalendar: false,
     calendarDays: []
-}
+};
 
 export const calendarReducer = (state=initialState, action) => {
     switch(action.type) {
@@ -23,5 +23,5 @@ export const calendarReducer = (state=initialState, action) => {
 
         default:
             return state
-    }
-}
+    };
+};

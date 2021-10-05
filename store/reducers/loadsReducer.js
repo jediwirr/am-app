@@ -4,7 +4,7 @@ const initialState = {
     selectedLesson: {},
     isSelected: false,
     files: []
-}
+};
 
 export const loadsReducer = (state=initialState, action) => {
     switch(action.type) {
@@ -51,5 +51,5 @@ export const loadsReducer = (state=initialState, action) => {
 
         default:
             return state
-    }
-}
+    };
+};

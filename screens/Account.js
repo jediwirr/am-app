@@ -14,13 +14,17 @@ const AccountScreen = () => {
     const setUser = (name, surname) => dispatch({type: 'SET_USER', name, surname});
 
     const Header = () => (
-        <Text style={
-            darkTheme
-                ? {...styles.account_role, color: '#fff'}
-                : {...styles.account_role, color: '#000'}
-        }>{
-            userType === 1 ? 'Ученик' : 'Родитель'
-        }</Text>
+        <Text 
+            style={
+                darkTheme
+                    ? {...styles.account_role, color: '#fff'}
+                    : {...styles.account_role, color: '#000'}
+            }
+        >
+            {
+                userType === 1 ? 'Ученик' : 'Родитель'
+            }
+        </Text>
     );
 
     const Item = ({name, surname}) => (

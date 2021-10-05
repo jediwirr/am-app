@@ -46,6 +46,7 @@ const TimetableDetail = ({navigation}) => {
                     width: width / 1.3
                 }
             }
+            autoCapitalize='none'
             value={text}
             onChangeText={text => setText(text)}
           />

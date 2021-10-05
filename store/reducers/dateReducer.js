@@ -4,7 +4,7 @@ const initialState = {
     stringDay: '',
     year: new Date(Date()).getFullYear(),
     month: new Date(Date()).getMonth()
-}
+};
 
 export const dateReducer = (state=initialState, action) => {
     switch(action.type) {
@@ -32,5 +32,5 @@ export const dateReducer = (state=initialState, action) => {
 
         default:
             return state
-    }
-}
+    };
+};

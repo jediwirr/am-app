@@ -61,7 +61,7 @@ const LoadFile = () => {
                     .then(response => {
                         if (response.status === 0) {
 
-                            Alert.alert('Файлы успешно загружены');
+                            Alert.alert('Файл успешно загружен');
 
                             refreshLesson();
 
@@ -89,7 +89,10 @@ const LoadFile = () => {
             method: 'DELETE'
         })
             .then(response => response.json())
-            .then(() => refreshLesson())
+            .then(() => {
+                refreshLesson();
+                Alert.alert('Файл удалён');
+            })
             .catch(error => {
                 console.log(error);
                 throw error;

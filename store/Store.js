@@ -4,10 +4,11 @@ import { authReducer } from './reducers/authReducer';
 import { themeReducer } from './reducers/themeReduer';
 import { marksReducer } from './reducers/marksReducer';
 import { dateReducer } from './reducers/dateReducer';
-import {calendarReducer} from "./reducers/calendarReducer";
-import {lessonReducer} from "./reducers/lessonReducer";
-import {loadsReducer} from "./reducers/loadsReducer";
-import {timetableReducer} from "./reducers/timetableReducer"
+import { calendarReducer } from "./reducers/calendarReducer";
+import { lessonReducer } from "./reducers/lessonReducer";
+import { loadsReducer } from "./reducers/loadsReducer";
+import { timetableReducer } from "./reducers/timetableReducer";
+import { notificationsReducer } from './reducers/notificationsReducer';
 
 const rootReducer = combineReducers(
     {
@@ -18,7 +19,8 @@ const rootReducer = combineReducers(
         calendar: calendarReducer,
         lesson: lessonReducer,
         loads: loadsReducer,
-        tt: timetableReducer
+        tt: timetableReducer,
+        note: notificationsReducer
     });
 
 export const store = createStore(rootReducer);

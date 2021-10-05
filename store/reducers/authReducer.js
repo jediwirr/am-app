@@ -3,7 +3,7 @@ const initialState = {
     students: [],
     user: {},
     userType: ''
-}
+};
 
 export const authReducer = (state=initialState, action) => {
     switch(action.type) {
@@ -42,5 +42,5 @@ export const authReducer = (state=initialState, action) => {
 
         default:
             return state
-    }
-}
+    };
+};

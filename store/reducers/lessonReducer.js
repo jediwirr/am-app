@@ -2,7 +2,7 @@ const initialState = {
     openLesson: false,
     lessons: [],
     lesson: {}
-}
+};
 
 export const lessonReducer = (state=initialState, action) => {
     switch(action.type) {
@@ -30,5 +30,5 @@ export const lessonReducer = (state=initialState, action) => {
 
         default:
             return state
-    }
-}
+    };
+};
