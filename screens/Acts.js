@@ -37,8 +37,11 @@ const ActsScreen = () => {
             .catch(error => console.log(error));
     }, []);
 
+    // https://diary.alma-mater-spb.ru/e-journal/parents/print_user.php?clue=alma64521&month=9&student=82
+
     const openAct =(month) => {
-        handleLink(`https://diary.alma-mater-spb.ru/e-journal/parents/print_user.php?clue=${userData.clue}&month=${month}&student_id=${user.student_id}`);
+        handleLink(`https://diary.alma-mater-spb.ru/e-journal/parents/print_user.php?clue=${userData.clue}&month=${month}&student=${user.student_id}`);
+        console.log(userData);
     };
 
     const Header = () => (
@@ -59,7 +62,7 @@ const ActsScreen = () => {
     const Item = ({month, date}) => (
         <TouchableOpacity
             style={{...styles.listItemContainer, flexDirection: 'row', justifyContent: 'space-between'}}
-            onPress={() => openAct(month)}
+            onPress={() => openAct('9')}
         >
             <Text style={{fontSize: 18, fontWeight: 'bold'}}>{month}</Text>
             <View style={{flexDirection: 'row'}}>

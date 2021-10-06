@@ -18,7 +18,7 @@ const Links = ({col}) => {
     return (
         <View>
             <Text style={{fontSize: 16, color: col, textAlign: 'center', marginBottom: 15}}>
-                Ссылки на социальные сети:
+                Ссылки на социальные сети гимназии:
             </Text>
             <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
                 {socialMedia.map(item =>

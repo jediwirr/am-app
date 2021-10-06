@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {
     TextInput,
@@ -10,6 +10,7 @@ import {
     Dimensions
 } from 'react-native';
 import {Button} from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {styles} from '../components/Style';
 import Links from '../components/Links';
@@ -20,25 +21,56 @@ const AuthScreen = () => {
     const log_in = (students, user, user_type, user_data) => dispatch({type: 'LOG_IN', students, user, user_type, user_data});
     const [login, onChangeLogin] = useState('');
     const [password, onChangePassword] = useState('');
-    const {height} = Dimensions.get('screen');
 
+    const getAuthorized = (data) => {
+        if (data != null) {
+            let obj = {
+                'clue': data.clue,
+                'user_id': data.user_id
+            }
+            log_in(data.student, data.student[0], data.type, obj)
+        }
+    };
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@storage_Key', jsonValue)
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('@storage_Key')
+            const data = jsonValue != null ? JSON.parse(jsonValue) : null
+            getAuthorized(data);
+            console.log(data);
+        } catch(e) {
+            console.log(e)
+        }
+    };
+
+    useEffect(() => {
+        getData();
+    }, [])
+  
     const sendCredentials = () => {
         fetch(`https://diary.alma-mater-spb.ru/e-journal/api/check_login.php?username=${login}&password=${password}&token=alma831`, {
             method: 'GET'
         })
         .then(response => response.json())
         .then(response => {
-            
-            let obj = {
-                'clue': response.clue,
-                'user_id': response.user_id
+            if (response.status === 0) {
+                storeData(response);
+                getAuthorized(response);
+                console.log(response);
+            } else if (login === '' || password === '') {
+                Alert.alert('Введите логин и пароль');
+            } else {
+                Alert.alert('Вы ввели неверный логин или пароль');
             }
-
-            response.status === 0
-            ? log_in(response.student, response.student[0], response.type, obj)
-            : login === '' || password === ''
-            ? Alert.alert('Введите логин и пароль')
-            : Alert.alert('Вы ввели неверный логин или пароль');
         })
         .catch(error => console.log(error));
     };
