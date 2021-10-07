@@ -7,9 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { styles, theme, theme_text } from '../components/Style';
 import { days, months } from "../components/Date";
 import Calendar from "./Calendar";
-import Lesson from "./Lesson";
 
-const DiaryScreen = () => {
+const DiaryScreen = ({navigation}) => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
     const lessons = useSelector(state => state.lesson.lessons)
     const full_date = new Date(Date());
@@ -198,15 +197,11 @@ const DiaryScreen = () => {
                                 borderBottomColor: 'gray'
                             }
                         }
-                        onPress={() => toggleLessonInfo(lesson)}
+                        onPress={() => {
+                            toggleLessonInfo(lesson)
+                            navigation.navigate('Lesson')
+                        }}
                     >
-
-                        <Modal
-                            animationType='slide'
-                            visible={isLesson}
-                        >
-                            <Lesson />
-                        </Modal>
 
                         <View
                             style={

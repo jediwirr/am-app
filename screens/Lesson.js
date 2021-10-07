@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import {View, SafeAreaView, Text, FlatList, Dimensions, Platform} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from "react-redux";
@@ -6,7 +6,7 @@ import * as Linking from 'expo-linking';
 
 import {styles} from "../components/Style";
 
-const Lesson = () => {
+const Lesson = ({navigation}) => {
     const dispatch = useDispatch();
     const lesson = useSelector(state => state.lesson.lesson);
     const d = useSelector(state => state.date.stringDay);
@@ -14,6 +14,10 @@ const Lesson = () => {
     const date = useSelector(state => state.date.stringDate);
     const toggleLessonInfo = (lesson) => dispatch({type: 'TOGGLE_LESSON_INFO', lesson});
     const {width} = Dimensions.get('screen');
+
+    React.useLayoutEffect(() => {
+        navigation.setOptions({ headerTitle: lesson.subject_name });
+      }, []);
 
     const handleLink = (url) => {
         Linking.openURL(url);
@@ -44,17 +48,6 @@ const Lesson = () => {
 
     return (
         <SafeAreaView>
-            <Text
-                style={
-                    {
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                        textAlign: 'center'
-                    }
-                }
-            >
-                {lesson.subject_name}
-            </Text>
             <View style={{padding: 10}}>
 
             <FlatList
@@ -120,7 +113,7 @@ const Lesson = () => {
                 </View>
             </View>
 
-            <View
+            {/* <View
                 style={
                     Platform.OS === 'ios'
                         ? {marginLeft: width / 2.5, width: width / 6}
@@ -138,7 +131,7 @@ const Lesson = () => {
                 >
                     Закрыть
                 </Button>
-            </View>
+            </View> */}
 
         </SafeAreaView>
     );

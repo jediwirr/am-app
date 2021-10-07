@@ -33,7 +33,7 @@ const LoadFile = () => {
             .then(response => response.json())
             .then(response => {
                 response.lessons.map(item =>
-                        setFiles(item.answer_student)
+                    setFiles(item.answer_student)
                 )
             })
             .catch(error => console.log(error));
@@ -44,6 +44,7 @@ const LoadFile = () => {
                 type: '*/*',
                 copyToCacheDirectory: false,
             });
+            
             const data = new FormData();
             data.append('file', {
                 name: res.name,
@@ -167,7 +168,7 @@ const LoadFile = () => {
                 </Text>
                 <RenderLesson />
             </View>
-           <View
+           {/* <View
                style={
                    Platform.OS === 'ios'
                        ? {marginLeft: width / 2.5, width: width / 6}
@@ -180,7 +181,7 @@ const LoadFile = () => {
                >
                    Закрыть
                </Button>
-           </View>
+           </View> */}
        </SafeAreaView>
     );
 };

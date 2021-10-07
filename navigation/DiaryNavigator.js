@@ -1,13 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import LoadsScreen from '../screens/Loads';
-import LoadDetails from "../screens/LoadDetails";
-import LoadFile from '../screens/LoadFile';
+import DiaryScreen from '../screens/Diary';
+import Lesson from '../screens/Lesson';
 
 const Stack = createStackNavigator();
 
-export const LoadsNavigator = () => {
+export const DiaryNavigator = () => {
 
     return (
         <Stack.Navigator screenOptions={{
@@ -20,16 +19,12 @@ export const LoadsNavigator = () => {
             headerTintColor: '#fff'
         }}>
             <Stack.Screen
-                name='Загрузка'
-                component={LoadsScreen}
+                name='Дневник'
+                component={DiaryScreen}
             />
             <Stack.Screen
-                name='LoadDetails'
-                component={LoadDetails}
-            />
-            <Stack.Screen
-                name='Загрузка файлов'
-                component={LoadFile}
+                name='Lesson'
+                component={Lesson}
             />
         </Stack.Navigator>
     );

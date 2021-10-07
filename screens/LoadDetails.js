@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useEffect }  from 'react';
 import {View, ScrollView, Text, TouchableOpacity, Modal} from "react-native";
 
 import { styles, theme, theme_text } from '../components/Style';
@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import LoadFile from "./LoadFile";
 
-const LoadDetails = () => {
+const LoadDetails = ({navigation}) => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
     const subject = useSelector(state => state.loads.subject);
     const name = useSelector(state => state.loads.subjectName);
@@ -14,17 +14,14 @@ const LoadDetails = () => {
     const dispatch = useDispatch();
     const selectLesson = (payload) => dispatch({type: 'SELECT_LESSON', payload});
 
+    React.useLayoutEffect(() => {
+        navigation.setOptions({ headerTitle: name });
+      }, []);
+
     return (
         <ScrollView>
 
-            <Modal
-                animationType='slide'
-                visible={isSelected}
-            >
-                <LoadFile />
-            </Modal>
-
-            <View>
+            {/* <View>
                 <Text
                     style={
                         {
@@ -37,7 +34,7 @@ const LoadDetails = () => {
                 >
                     {name}
                 </Text>
-            </View>
+            </View> */}
             {subject.map(item =>
                 <TouchableOpacity
                     key={item.lesson_id}
@@ -51,7 +48,10 @@ const LoadDetails = () => {
                             fontSize: 16
                         }
                     }
-                    onPress={() => selectLesson(item)}
+                    onPress={() => {
+                        selectLesson(item)
+                        navigation.navigate('Загрузка файлов')
+                    }}
                 >
                     <Text style={{fontWeight: 'bold'}}>
                         {item.data_lesson}

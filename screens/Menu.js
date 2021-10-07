@@ -53,7 +53,7 @@ const MenuScreen = ({navigation}) => {
                 keyExtractor={item => item.name}
             />
             <View
-                style={{marginTop: height / 2.5}}
+                // style={{marginTop: height / 2.5}}
             >
                 <Links col='#000' />
             </View>

@@ -53,7 +53,7 @@ const TimetableScreen = ({navigation}) => {
             style={{ ...styles.listItemContainer, flexDirection: 'row' }}
             onPress={() => {
                 changeLesson(item);
-                navigation.navigate('ttDetails');
+                navigation.navigate('Редактирование');
             }}
         >
             <Text style={

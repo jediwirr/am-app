@@ -31,10 +31,7 @@ const TimetableDetail = ({navigation}) => {
     };
 
     return (
-      <View style={styles.container}>
-          <Text
-            style={{marginBottom: 30, fontSize: 18, fontWeight: 'bold'}}
-          >Редактирование</Text>
+      <View style={{ flex: 1, alignItems: 'center', paddingTop: 15 }}>
           <TextInput
             style={
                 {

@@ -3,11 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import MenuScreen from '../screens/Menu';
-import DiaryScreen from '../screens/Diary';
 import MarksScreen from '../screens/Marks';
-import TimetableScreen from '../screens/Timetable';
-import {LoadsNavigator} from "./LoadsNavigator";
-import {TimetableNavigator} from "./TimetableNavigator";
+import { LoadsNavigator } from "./LoadsNavigator";
+import { TimetableNavigator } from "./TimetableNavigator";
+import { DiaryNavigator } from './DiaryNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,9 +39,10 @@ export const MainNavigator = () => {
                     }}
                 />
                 <Tab.Screen
-                    name="Дневник"
-                    component={DiaryScreen}
+                    name="DiaryNavigator"
+                    component={DiaryNavigator}
                     options={{
+                        headerShown: false,
                         tabBarIcon: () => (
                             <Ionicons 
                                 name='book-outline'
@@ -71,6 +71,7 @@ export const MainNavigator = () => {
                     name="LoadsNavigator"
                     component={LoadsNavigator}
                     options={{
+                        headerShown: false,
                         tabBarIcon: () => (
                             <Ionicons 
                                 name='attach'
@@ -85,6 +86,7 @@ export const MainNavigator = () => {
                     name="TimetableNavigator"
                     component={TimetableNavigator}
                     options={{
+                        headerShown: false,
                         tabBarIcon: () => (
                             <Ionicons 
                                 name='calendar-outline'
@@ -97,5 +99,5 @@ export const MainNavigator = () => {
                 />
             </Tab.Group>
         </Tab.Navigator>
-    )
-}
+    );
+};
