@@ -23,7 +23,6 @@ const App = () => {
   const setExpoPushToken = (expoPushToken) => dispatch({type: 'SET_TOKEN', expoPushToken});
   const expoPushToken = useSelector(state => state.note.expoPushToken);
 
-  // const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();

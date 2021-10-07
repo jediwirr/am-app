@@ -57,6 +57,7 @@ const DiaryScreen = () => {
     const date_lesson = `${year}-${month < 10 ? '0' + (month + 1).toString() : month + 1}-${date < 10 ? '0' + date.toString() : date}`;
 
     useEffect(() => {
+        setDate(new Date(Date()).getDate());
         get_day();
         get_month();
     }, []);
@@ -69,7 +70,10 @@ const DiaryScreen = () => {
                 method: 'GET'
             })
                 .then(response => response.json())
-                .then(response => setLessons(response.lessons))
+                .then(response => {
+                    setLessons(response.lessons)
+                    console.log(response)
+                })
                 .catch(error => console.log(error));
         };
 

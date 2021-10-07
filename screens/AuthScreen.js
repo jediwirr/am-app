@@ -6,8 +6,7 @@ import {
     View,
     Image,
     Alert,
-    KeyboardAvoidingView,
-    Dimensions
+    KeyboardAvoidingView
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -46,7 +45,6 @@ const AuthScreen = () => {
             const jsonValue = await AsyncStorage.getItem('@storage_Key')
             const data = jsonValue != null ? JSON.parse(jsonValue) : null
             getAuthorized(data);
-            console.log(data);
         } catch(e) {
             console.log(e)
         }

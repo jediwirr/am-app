@@ -10,6 +10,7 @@ const LogOutScreen = ({navigation}) => {
     const dispatch = useDispatch();
     const log_out = () => dispatch({type: 'LOG_OUT'});
     const darkTheme = useSelector(state => state.theme.darkTheme);
+    const setDate = (date) => dispatch({type: 'SET_DATE', date});
 
     const storeData = async (value) => {
         try {
@@ -46,6 +47,7 @@ const LogOutScreen = ({navigation}) => {
                     color='blue'
                     onPress={
                         storeData(''),
+                        // setDate(new Date(Date()).getDate()),
                         log_out
                     }
                 >
