@@ -33,6 +33,9 @@ export const UserNavigator = () => {
                 <Stack.Screen
                     name='Объявления'
                     component={AdsScreen}
+                    options={{
+                        headerShown: true
+                    }}
                 />
                 <Stack.Screen
                     name='Акты'
@@ -45,6 +48,9 @@ export const UserNavigator = () => {
                 <Stack.Screen
                     name='Профиль'
                     component={AccountScreen}
+                    options={{
+                        headerShown: true
+                    }}
                 />
                 <Stack.Screen
                     name='Выход'

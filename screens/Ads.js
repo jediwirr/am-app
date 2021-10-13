@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, ScrollView, View, FlatList} from 'react-native';
+import {Text, ScrollView, View, FlatList, SafeAreaView} from 'react-native';
 import {Button} from 'react-native-paper';
 import {Ionicons} from '@expo/vector-icons';
 import {useSelector} from 'react-redux';
@@ -26,12 +26,13 @@ const AdsScreen = () => {
             .then(response => response.json())
             .then(response => {
                 setAds(response)
+                console.log(response)
             })
             .catch(error => console.log(error));
     }, [week, user]);
 
     const Item = ({day, ad}) => (
-        <View>
+        <View style={{padding: 10}}>
             <Text style={
                 {
                     fontSize: 18,
@@ -43,11 +44,10 @@ const AdsScreen = () => {
                 {day}
             </Text>
             {ad.map(item =>
-                <View>
+                <View key={item.ad_text}>
                     <Text>{item.ad_text}</Text>
                     <Text onPress={() => handleLink(item.url)}>{item.url ? 'Скачать' : ''}</Text>
-                    <Text>{item.name}</Text>
-                    <Text>{item.date_create}</Text>
+                    <Text style={{fontStyle: 'italic', color: 'gray', borderBottomColor: 'gray', borderBottomWidth: 1}}>{item.name}, созд. {item.date_create}</Text>
                 </View>
             )}
         </View>

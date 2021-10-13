@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { View, SafeAreaView, Text, FlatList, Dimensions } from 'react-native';
+import { View, Text, FlatList, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import * as Linking from 'expo-linking';
 
@@ -41,81 +41,83 @@ const Lesson = ({navigation}) => {
         </View>
     );
 
-    const renderItem = ({item}) => (
-        <Item title={item.title} info={item.info} />
+    const renderItem = ({item}) => {
+        if (item.info) {
+            return <Item title={item.title} info={item.info} />
+        }
+    };
+
+    const Files = () => (
+        <View>
+            <Text style={styles.lessonInfoTitle}>
+                Файлы
+            </Text>
+
+            <View style={{flexDirection: 'row'}}>
+                <Text
+                    style={
+                        {
+                            ...styles.lessonInfo, fontStyle: 'italic'
+                        }
+                    }
+                >
+                    {lesson.numrows_files_lesson != 0 ? `Общие: ${lesson.numrows_files_lesson}` : ''}
+                </Text>
+                <Text
+                    style={
+                        {
+                            ...styles.lessonInfo, fontStyle: 'italic'
+                        }
+                    }
+                >
+                    {lesson.numrows_files_ind != 0 ? `Индивидуальные: ${lesson.numrows_files_ind}` : ''}
+                </Text>
+            </View>
+
+            <View>
+                {lesson.files_lesson.map(item =>
+                    <Text
+                        style={
+                            {
+                                ...styles.lessonInfo, color: 'green'
+                            }
+                        }
+                        key={lesson.lesson_id}
+                        onPress={() => handleLink(item.url)}
+                    >
+                        {item.title}
+                    </Text>
+                )}
+            </View>
+
+            <View>
+                {lesson.files_ind.map(item =>
+                    <Text
+                        style={
+                            {
+                                ...styles.lessonInfo, color: 'red'
+                            }
+                        }
+                        key={lesson.lesson_id}
+                        onPress={() => handleLink(item.url)}
+                    >
+                        {item.title}
+                    </Text>
+                )}
+            </View>
+        </View>
     );
 
     return (
-        <SafeAreaView>
-
-            <View style={{padding: 10}}>
-
-                <FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.title}
-                />
-
-                <Text style={styles.lessonInfoTitle}>
-                    Файлы
-                </Text>
-
-                <View style={{flexDirection: 'row'}}>
-                    <Text
-                        style={
-                            {
-                                ...styles.lessonInfo, fontStyle: 'italic'
-                            }
-                        }
-                    >
-                        Общие: {lesson.numrows_files_lesson}
-                    </Text>
-                    <Text
-                        style={
-                            {
-                                ...styles.lessonInfo, fontStyle: 'italic'
-                            }
-                        }
-                    >
-                        Индивидуальные: {lesson.numrows_files_ind}
-                    </Text>
-                </View>
-
-                <View>
-                    {lesson.files_lesson.map(item =>
-                        <Text
-                            style={
-                                {
-                                    ...styles.lessonInfo, color: 'green'
-                                }
-                            }
-                            key={lesson.lesson_id}
-                            onPress={() => handleLink(item.url)}
-                        >
-                            {item.title}
-                        </Text>
-                    )}
-                </View>
-
-                <View>
-                    {lesson.files_ind.map(item =>
-                        <Text
-                            style={
-                                {
-                                    ...styles.lessonInfo, color: 'red'
-                                }
-                            }
-                            key={lesson.lesson_id}
-                            onPress={() => handleLink(item.url)}
-                        >
-                            {item.title}
-                        </Text>
-                    )}
-                </View>
-
-            </View>
-
-        </SafeAreaView>
+        <FlatList
+            style={{padding: 10}}
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.title}
+            ListFooterComponent={
+                lesson.numrows_files_ind || lesson.numrows_files_lesson ? <Files /> : ''
+            }
+        />
     );
 };
 
