@@ -1,25 +1,22 @@
 import React, { useLayoutEffect } from 'react';
-import { View, Text, FlatList, Dimensions } from 'react-native';
-import { useDispatch, useSelector } from "react-redux";
+import { View, Text, FlatList } from 'react-native';
+import { useSelector } from "react-redux";
 import * as Linking from 'expo-linking';
 
 import { styles } from "../components/Style";
 
 const Lesson = ({navigation}) => {
-    const dispatch = useDispatch();
     const lesson = useSelector(state => state.lesson.lesson);
+    const date = useSelector(state => state.date.stringDate);
     const d = useSelector(state => state.date.stringDay);
     const m = useSelector(state => state.date.stringMonth);
-    const date = useSelector(state => state.date.stringDate);
-    const toggleLessonInfo = (lesson) => dispatch({type: 'TOGGLE_LESSON_INFO', lesson});
-    const {width} = Dimensions.get('screen');
 
     useLayoutEffect(() => {
         navigation.setOptions({ headerTitle: lesson.subject_name });
       }, []);
 
     const handleLink = (url) => {
-        Linking.openURL(url);
+        Linking.openURL(url.replace(' ', '%20'));
     };
 
     const data = [
@@ -27,15 +24,23 @@ const Lesson = ({navigation}) => {
         { title: 'Тема урока', info: lesson.name_lesson },
         { title: 'Домашнее задание', info: lesson.homework },
         { title: 'Оценки', info: lesson.value },
-        { title: 'Замечания', info: lesson.comment }
+        { title: 'Замечания', info: lesson.comment, type: lesson.comment_type }
     ];
 
-    const Item = ({title, info}) => (
+    const Item = ({title, info, type}) => (
         <View>
             <Text style={styles.lessonInfoTitle}>
                 {title}
             </Text>
-            <Text style={styles.lessonInfo}>
+            <Text style={
+                {
+                    ...styles.lessonInfo, 
+                    color: type === 0 
+                    ? 'red' 
+                    : type === 1 ? 'green' 
+                    : ''
+            }
+        }>
                 {info}
             </Text>
         </View>
@@ -43,7 +48,11 @@ const Lesson = ({navigation}) => {
 
     const renderItem = ({item}) => {
         if (item.info) {
-            return <Item title={item.title} info={item.info} />
+            return (
+                <View>
+                    <Item title={item.title} info={item.info} type={item.type} />
+                </View>
+            )
         }
     };
 
@@ -83,7 +92,9 @@ const Lesson = ({navigation}) => {
                             }
                         }
                         key={lesson.lesson_id}
-                        onPress={() => handleLink(item.url)}
+                        onPress={
+                            () => handleLink(item.url)
+                        }
                     >
                         {item.title}
                     </Text>
@@ -99,7 +110,9 @@ const Lesson = ({navigation}) => {
                             }
                         }
                         key={lesson.lesson_id}
-                        onPress={() => handleLink(item.url)}
+                        onPress={
+                            () => handleLink(item.url)
+                        }
                     >
                         {item.title}
                     </Text>
@@ -115,7 +128,7 @@ const Lesson = ({navigation}) => {
             renderItem={renderItem}
             keyExtractor={item => item.title}
             ListFooterComponent={
-                lesson.numrows_files_ind || lesson.numrows_files_lesson ? <Files /> : ''
+                lesson.files.length != 0 ? <Files /> : ''
             }
         />
     );
