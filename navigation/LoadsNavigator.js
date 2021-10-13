@@ -16,12 +16,16 @@ export const LoadsNavigator = () => {
             tabBarActiveTintColor: '#fff',
             headerStyle: {
                 backgroundColor: '#002e2f',
+                
               },
             headerTintColor: '#fff'
         }}>
             <Stack.Screen
                 name='Загрузка'
                 component={LoadsScreen}
+                options={{
+                    headerShown: false
+                }}
             />
             <Stack.Screen
                 name='LoadDetails'

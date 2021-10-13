@@ -23,6 +23,9 @@ export const TimetableNavigator = () => {
             <Stack.Screen
                 name='Расписание'
                 component={TimetableScreen}
+                options={{
+                    headerShown: false
+                }}
             />
             <Stack.Screen
                 name='Редактирование'

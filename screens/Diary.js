@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text, View, ScrollView, Modal, Pressable, TouchableOpacity, SafeAreaView} from 'react-native';
+import {Text, View, ScrollView, Pressable, TouchableOpacity, SafeAreaView} from 'react-native';
 import { Button } from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
@@ -134,16 +134,7 @@ const DiaryScreen = ({navigation}) => {
     };
 
     return (
-        <SafeAreaView>
-
-            {/*<Modal*/}
-            {/*    animationType='slide'*/}
-            {/*    onRequestClose={() => toggleCalendar()}*/}
-            {/*    visible={isCalendar}*/}
-            {/*    transparent={false}*/}
-            {/*>*/}
-            {/*    <Calendar />*/}
-            {/*</Modal>*/}
+        <SafeAreaView style={styles.safeArea}>
 
             <ScrollView style={
                 darkTheme

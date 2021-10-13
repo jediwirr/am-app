@@ -20,7 +20,8 @@ export const UserNavigator = () => {
             headerStyle: {
                 backgroundColor: '#002e2f',
             },
-            headerTintColor: '#fff'
+            headerTintColor: '#fff',
+            headerShown: false
         }}>
             <Stack.Group screenOptions={{ headerShown: false }}>
                 <Stack.Screen

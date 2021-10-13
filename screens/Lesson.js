@@ -1,10 +1,9 @@
 import React, { useLayoutEffect } from 'react';
-import {View, SafeAreaView, Text, FlatList, Dimensions, Platform} from 'react-native';
-import {Button} from 'react-native-paper';
-import {useDispatch, useSelector} from "react-redux";
+import { View, SafeAreaView, Text, FlatList, Dimensions } from 'react-native';
+import { useDispatch, useSelector } from "react-redux";
 import * as Linking from 'expo-linking';
 
-import {styles} from "../components/Style";
+import { styles } from "../components/Style";
 
 const Lesson = ({navigation}) => {
     const dispatch = useDispatch();
@@ -15,7 +14,7 @@ const Lesson = ({navigation}) => {
     const toggleLessonInfo = (lesson) => dispatch({type: 'TOGGLE_LESSON_INFO', lesson});
     const {width} = Dimensions.get('screen');
 
-    React.useLayoutEffect(() => {
+    useLayoutEffect(() => {
         navigation.setOptions({ headerTitle: lesson.subject_name });
       }, []);
 
@@ -24,11 +23,11 @@ const Lesson = ({navigation}) => {
     };
 
     const data = [
-        {title: 'Дата', info: `${date} ${m}, ${d}`},
-        {title: 'Тема урока', info: lesson.name_lesson},
-        {title: 'Домашнее задание', info: lesson.homework},
-        {title: 'Оценки', info: lesson.value},
-        {title: 'Замечания', info: lesson.comment}
+        { title: 'Дата', info: `${date} ${m}, ${d}` },
+        { title: 'Тема урока', info: lesson.name_lesson },
+        { title: 'Домашнее задание', info: lesson.homework },
+        { title: 'Оценки', info: lesson.value },
+        { title: 'Замечания', info: lesson.comment }
     ];
 
     const Item = ({title, info}) => (
@@ -48,17 +47,19 @@ const Lesson = ({navigation}) => {
 
     return (
         <SafeAreaView>
+
             <View style={{padding: 10}}>
 
-            <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={item => item.title}
-            />
+                <FlatList
+                    data={data}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.title}
+                />
 
                 <Text style={styles.lessonInfoTitle}>
                     Файлы
                 </Text>
+
                 <View style={{flexDirection: 'row'}}>
                     <Text
                         style={
@@ -111,27 +112,8 @@ const Lesson = ({navigation}) => {
                         </Text>
                     )}
                 </View>
-            </View>
 
-            {/* <View
-                style={
-                    Platform.OS === 'ios'
-                        ? {marginLeft: width / 2.5, width: width / 6}
-                        : {marginLeft: width / 4, width: width / 2}
-                }
-            >
-                <Button
-                    style={
-                        {
-                            marginTop: 35, borderRadius: 50
-                        }
-                    }
-                        mode='contained'
-                        onPress={() => toggleLessonInfo({})}
-                >
-                    Закрыть
-                </Button>
-            </View> */}
+            </View>
 
         </SafeAreaView>
     );

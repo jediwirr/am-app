@@ -1,12 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text, View, Alert, Dimensions, Platform} from 'react-native';
-import {Button} from 'react-native-paper'
-import {useDispatch, useSelector} from "react-redux";
+import { Text, View, Alert, Dimensions, ScrollView } from 'react-native';
+import { Button } from 'react-native-paper'
+import { useDispatch, useSelector } from "react-redux";
 import * as Linking from 'expo-linking';
-import {Ionicons} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 
-import {styles} from "../components/Style";
+import { styles } from "../components/Style";
 
 
 const LoadFile = () => {
@@ -19,8 +19,6 @@ const LoadFile = () => {
 
     const name = useSelector(state => state.loads.subjectName);
     const lesson = useSelector(state => state.loads.selectedLesson);
-
-    const {width} = Dimensions.get('screen');
 
     const handleLink = (url) => {
         Linking.openURL(url);
@@ -131,8 +129,7 @@ const LoadFile = () => {
     );
 
     return (
-       <SafeAreaView>
-           <Text style={styles.detailsHeader}>Д/З</Text>
+       <ScrollView>
             <View style={{padding: 10}}>
                 <View style={
                     {
@@ -168,21 +165,7 @@ const LoadFile = () => {
                 </Text>
                 <RenderLesson />
             </View>
-           {/* <View
-               style={
-                   Platform.OS === 'ios'
-                       ? {marginLeft: width / 2.5, width: width / 6}
-                       : {marginLeft: width / 4, width: width / 2}
-               }
-           >
-               <Button style={{marginTop: 35, borderRadius: 50}}
-                       mode='contained'
-                       onPress={() => selectLesson({})}
-               >
-                   Закрыть
-               </Button>
-           </View> */}
-       </SafeAreaView>
+       </ScrollView>
     );
 };
 

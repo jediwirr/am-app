@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 // import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
-import { Platform } from 'react-native';
+import { Platform, SafeAreaView } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './store/Store';
 
+import { styles } from './components/Style';
 import { UserNavigator } from './navigation/UserNavigator';
 
 Notifications.setNotificationHandler({
@@ -99,13 +100,15 @@ const App = () => {
   );
 };
 
+console.log(StatusBar.currentHeight);
+
 export default function () {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <App />
+          <App />
       </Provider>
-      <StatusBar style="light" />
+      <StatusBar style="light" backgroundColor='#002e2f' />
     </NavigationContainer>
   )
 };

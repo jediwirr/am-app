@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, TouchableOpacity, FlatList} from 'react-native';
+import {Text, View, TouchableOpacity, FlatList, SafeAreaView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {styles, theme, theme_text} from '../components/Style';
@@ -88,20 +88,14 @@ const TimetableScreen = ({navigation}) => {
     };
 
     return (
-        <View
-            style={
-                darkTheme
-                ? theme.dark
-                : theme.light
-            }
-        >
+        <SafeAreaView style={styles.safeArea}>
             <Header />
             <FlatList
                 data={schedule}
                 renderItem={renderItem}
                 keyExtractor={item => item.number_lesson + item.week_day}
             />
-        </View>
+        </SafeAreaView>
     );
 };
 

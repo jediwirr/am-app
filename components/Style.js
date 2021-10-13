@@ -1,4 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { StatusBar } from 'react-native';
+import { Platform } from 'react-native';
+
 
 export const theme = StyleSheet.create({
     dark: {
@@ -19,6 +22,9 @@ export const theme_text = StyleSheet.create({
 });
 
 export const styles = StyleSheet.create({
+    safeArea: {
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+    },  
     container: {
       flex: 2,
       alignItems: 'center',

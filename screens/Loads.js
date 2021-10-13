@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {styles, theme, theme_text} from '../components/Style';
@@ -70,11 +70,13 @@ const LoadsScreen = ({navigation}) => {
     };
 
     return (
-        <FlatList
-            data={subjects}
-            renderItem={renderItem}
-            keyExtractor={item => item.subject_id}
-        />
+        <SafeAreaView style={styles.safeArea}>
+            <FlatList
+                data={subjects}
+                renderItem={renderItem}
+                keyExtractor={item => item.subject_id}
+            />
+        </SafeAreaView>
     );
 };
 

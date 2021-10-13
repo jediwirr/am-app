@@ -18,9 +18,6 @@ export const MainNavigator = () => {
                 tabBarActiveBackgroundColor: '#002e2f',
                 tabBarInactiveBackgroundColor: '#002e2f',
                 tabBarActiveTintColor: '#fff',
-                headerStyle: {
-                    backgroundColor: '#002e2f',
-                  },
                 headerTintColor: '#fff'
             }}>
             <Tab.Group>
@@ -35,7 +32,8 @@ export const MainNavigator = () => {
                                 size={25}
                             />
                         ),
-                        title: 'Меню'
+                        title: 'Меню',
+                        headerShown: false
                     }}
                 />
                 <Tab.Screen
@@ -64,7 +62,8 @@ export const MainNavigator = () => {
                                 size={25}
                             />
                         ),
-                        title: 'Отметки'
+                        title: 'Отметки',
+                        headerShown: false
                     }}
                 />
                 <Tab.Screen

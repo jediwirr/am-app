@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { useLayoutEffect }  from 'react';
 import {View, ScrollView, Text, TouchableOpacity, Modal} from "react-native";
 
 import { styles, theme, theme_text } from '../components/Style';
@@ -14,7 +14,7 @@ const LoadDetails = ({navigation}) => {
     const dispatch = useDispatch();
     const selectLesson = (payload) => dispatch({type: 'SELECT_LESSON', payload});
 
-    React.useLayoutEffect(() => {
+    useLayoutEffect(() => {
         navigation.setOptions({ headerTitle: name });
       }, []);
 
@@ -35,6 +35,7 @@ const LoadDetails = ({navigation}) => {
                     {name}
                 </Text>
             </View> */}
+
             {subject.map(item =>
                 <TouchableOpacity
                     key={item.lesson_id}

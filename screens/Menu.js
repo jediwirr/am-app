@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, FlatList, TouchableOpacity, View, Dimensions} from 'react-native';
+import {Text, FlatList, TouchableOpacity, View, Dimensions, SafeAreaView} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useSelector} from 'react-redux';
 
@@ -45,7 +45,7 @@ const MenuScreen = ({navigation}) => {
     };
 
     return (
-        <View>
+        <SafeAreaView style={styles.safeArea}>
             <FlatList
                 style={styles.list}
                 data={menu}
@@ -57,7 +57,7 @@ const MenuScreen = ({navigation}) => {
             >
                 <Links col='#000' />
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

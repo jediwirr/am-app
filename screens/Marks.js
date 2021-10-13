@@ -96,11 +96,7 @@ const MarksScreen = () => {
 
     return (
         <SafeAreaView
-            style={
-                darkTheme 
-                    ? theme.dark
-                    : theme.light
-            }
+            style={styles.safeArea}
         >
                 <Header />
                 <FlatList

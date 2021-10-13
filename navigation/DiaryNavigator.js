@@ -21,6 +21,9 @@ export const DiaryNavigator = () => {
             <Stack.Screen
                 name='Дневник'
                 component={DiaryScreen}
+                options={{
+                    headerShown: false
+                }}
             />
             <Stack.Screen
                 name='Lesson'
