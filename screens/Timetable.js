@@ -23,7 +23,7 @@ const TimetableScreen = ({navigation}) => {
         })
             .then(response => response.json())
             .then(response => {
-                console.log(response.schedule)
+                // console.log(response.schedule)
                 setSchedule(response.schedule)
             })
             .catch(error => console.log(error));

@@ -37,10 +37,11 @@ const Lesson = ({navigation}) => {
                     ...styles.lessonInfo, 
                     color: type === 0 
                     ? 'red' 
-                    : type === 1 ? 'green' 
-                    : ''
-            }
-        }>
+                    : type === 1 
+                    ? 'green' 
+                    : '#000'
+                }
+            }>
                 {info}
             </Text>
         </View>
