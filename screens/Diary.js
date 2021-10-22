@@ -212,7 +212,8 @@ const DiaryScreen = ({navigation}) => {
                             <Text
                                 style={{color: lesson.comment_type === 1 ? 'green' : 'red'}}
                             >{lesson.comment}</Text>
-                            <Text>Файлы({lesson.numrows_files_lesson})</Text>
+                            {lesson.numrows_files_lesson === 0 ? null :  <Text>Файлы({lesson.numrows_files_lesson})</Text>}
+                            
                         </View>
                     </TouchableOpacity>
                 )}

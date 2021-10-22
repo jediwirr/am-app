@@ -97,12 +97,12 @@ const App = () => {
       if (res.length != 0) {
         console.log('already subscribed');
       } else {
-        schedulePushNotification();
+        // schedulePushNotification();
         console.log('making a subscription');
       }
     });
 
-    // Notifications.cancelAllScheduledNotificationsAsync('');
+    Notifications.cancelAllScheduledNotificationsAsync('851b6a8b-fb1a-4076-982a-b929195b8d06');
   }, []);
 
   return (
