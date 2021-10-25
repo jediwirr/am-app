@@ -1,16 +1,10 @@
 import React, { useLayoutEffect }  from 'react';
-import {View, ScrollView, Text, TouchableOpacity, Modal} from "react-native";
-
-import { styles, theme, theme_text } from '../components/Style';
-import {useDispatch, useSelector} from "react-redux";
-
-import LoadFile from "./LoadFile";
+import { View, ScrollView, Text, TouchableOpacity } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoadDetails = ({navigation}) => {
-    const darkTheme = useSelector(state => state.theme.darkTheme);
     const subject = useSelector(state => state.loads.subject);
     const name = useSelector(state => state.loads.subjectName);
-    const isSelected = useSelector(state => state.loads.isSelected);
     const dispatch = useDispatch();
     const selectLesson = (payload) => dispatch({type: 'SELECT_LESSON', payload});
 
@@ -20,22 +14,7 @@ const LoadDetails = ({navigation}) => {
 
     return (
         <ScrollView>
-
-            {/* <View>
-                <Text
-                    style={
-                        {
-                            padding: 10,
-                            textAlign: 'center',
-                            fontSize: 18,
-                            fontWeight: 'bold'
-                        }
-                    }
-                >
-                    {name}
-                </Text>
-            </View> */}
-
+            
             {subject.map(item =>
                 <TouchableOpacity
                     key={item.lesson_id}

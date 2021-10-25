@@ -50,29 +50,40 @@ const TimetableScreen = ({navigation}) => {
 
     const Item = ({number, time, subject, item}) => (
         <TouchableOpacity
-            style={{ ...styles.listItemContainer, flexDirection: 'row' }}
+            style={
+                { 
+                    ...styles.listItemContainer, 
+                    flexDirection: 'row' 
+                }
+        }
             onPress={() => {
                 changeLesson(item);
                 navigation.navigate('Редактирование');
             }}
         >
-            <Text style={
-                {
-                    color: darkTheme ? '#fff' : '#000',
-                    fontSize: 15,
-                    paddingHorizontal: 15,
-                    paddingBottom: 15
+            <Text 
+                style={
+                    {
+                        color: darkTheme ? '#fff' : '#000',
+                        fontSize: 15,
+                        paddingHorizontal: 15,
+                        paddingBottom: 15
+                    }
                 }
-            }>{number}.</Text>
+            >
+                {number}.
+            </Text>
             <Text style={{fontSize: 15}}>
                 {time}
             </Text>
-            <Text style={
-                {
-                    paddingHorizontal: 15,
-                    fontSize: 15
+            <Text 
+                style={
+                    {
+                        paddingHorizontal: 15,
+                        fontSize: 15
+                    }
                 }
-            }>
+            >
                 {subject}
             </Text>
         </TouchableOpacity>

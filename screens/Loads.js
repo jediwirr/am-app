@@ -3,6 +3,7 @@ import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {styles, theme, theme_text} from '../components/Style';
+import QuarterHeader from '../components/QuartersHeader';
 
 const LoadsScreen = ({navigation}) => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
@@ -13,6 +14,7 @@ const LoadsScreen = ({navigation}) => {
     const loadSubject = (payload, name) => dispatch({type: 'LOAD_SUBJECT', payload, name});
 
     const [subjects, setSubjects] = useState([]);
+    const term = useSelector(state => state.marks.term);
 
     useEffect(() => {
         fetch(`https://diary.alma-mater-spb.ru/e-journal/api/open_marks.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}`, {
@@ -20,20 +22,21 @@ const LoadsScreen = ({navigation}) => {
         })
             .then(response => response.json())
             .then(response => {
-                setSubjects(response.marks)
+                setSubjects(response.marks);
             })
             .catch(error => console.log(error));
     }, [user]);
 
     const selectLesson = (id, name) => {
-        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/open_homework.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&quarter=1&subject_id=${id}`, {
+        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/open_homework.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&quarter=${term}&subject_id=${id}`, {
             method: 'GET'
         })
             .then(response => response.json())
             .then(response =>
                 {
-                    loadSubject(response.lessons, name)
-                    navigation.navigate('LoadDetails')
+                    console.log(response);
+                    loadSubject(response.lessons, name);
+                    navigation.navigate('LoadDetails');
                 }
             )
             .catch(error => console.log(error))
@@ -71,6 +74,7 @@ const LoadsScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            <QuarterHeader term={term} />
             <FlatList
                 data={subjects}
                 renderItem={renderItem}

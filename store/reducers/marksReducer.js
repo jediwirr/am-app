@@ -1,5 +1,6 @@
 const initialState = {
-    marks: ''
+    marks: '',
+    term: '1'
 };
 
 export const marksReducer = (state=initialState, action) => {
@@ -10,6 +11,13 @@ export const marksReducer = (state=initialState, action) => {
                 ...state,
                 marks: action.payload
             }
+
+        case 'SET_TERM':
+
+        return {
+            ...state,
+            term: action.payload
+        }
 
         default:
             return state
