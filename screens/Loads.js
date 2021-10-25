@@ -76,10 +76,14 @@ const LoadsScreen = ({navigation}) => {
         <SafeAreaView style={styles.safeArea}>
             <QuarterHeader term={term} />
             <FlatList
-                data={subjects}
-                renderItem={renderItem}
-                keyExtractor={item => item.subject_id}
-            />
+            data={subjects}
+            renderItem={renderItem}
+            keyExtractor={item => item.subject_id}
+            ListFooterComponent={
+                <View style={{padding: 20}}></View>
+            }
+        />
+
         </SafeAreaView>
     );
 };
