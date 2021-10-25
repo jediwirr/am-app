@@ -68,12 +68,12 @@ const DiaryScreen = ({navigation}) => {
             await fetch(url, {
                 method: 'GET'
             })
-                .then(response => response.json())
-                .then(response => {
-                    setLessons(response.lessons)
-                    console.log(response)
-                })
-                .catch(error => console.log(error));
+            .then(response => response.json())
+            .then(response => {
+                setLessons(response.lessons)
+                console.log(response)
+            })
+            .catch(error => console.log(error));
         };
 
         fetchData(`https://diary.alma-mater-spb.ru/e-journal/api/open_diary.php?clue=${userData.clue}&user_id=${userData.user_id}&student_id=${user.student_id}&date_lesson=${date_lesson}`);
@@ -212,8 +212,11 @@ const DiaryScreen = ({navigation}) => {
                             <Text
                                 style={{color: lesson.comment_type === 1 ? 'green' : 'red'}}
                             >{lesson.comment}</Text>
-                            {lesson.numrows_files_lesson === 0 ? null :  <Text>Файлы({lesson.numrows_files_lesson})</Text>}
-                            
+                            {
+                                lesson.numrows_files_lesson === 0 
+                                ? null 
+                                : <Text>Файлы({lesson.numrows_files_lesson})</Text>
+                            }
                         </View>
                     </TouchableOpacity>
                 )}

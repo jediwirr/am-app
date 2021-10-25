@@ -11,6 +11,8 @@ const MarksScreen = () => {
     const periods = ['1', '2', 'I', '3', '4', 'II'];
 
     const [subjects, setSubjects] = useState('');
+
+    // SET IT AUTAMOTICALLY!!!
     const [term, setTerm] = useState('1');
 
     useEffect(() => {
@@ -19,13 +21,14 @@ const MarksScreen = () => {
         })
         .then(response => response.json())
         .then(response => {
-            setSubjects(response.marks)
+            setSubjects(response.marks);
+            console.log(response);
         })
         .catch(error => console.log(error));
     }, [user]);
 
-    const Item = ({ title, marks }) => (
-        <View style={{ ...styles.listItemContainer, flexDirection: 'column' }}>
+    const Item = ({ title, marks, final }) => (
+        <View style={{ ...styles.listItemContainer, flexDirection: 'column', paddingRight: 15 }}>
             <Text
                 style={
                     {
@@ -39,10 +42,16 @@ const MarksScreen = () => {
             >
                 {title}
             </Text>
+            <View style={
+                {
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }
+            }>
             <Text
                 style={
                     {
-                        color: 'green',
+                        color: '#0080ff',
                         paddingHorizontal: 15,
                         fontSize: 16
                     }
@@ -50,6 +59,10 @@ const MarksScreen = () => {
             >
                 {marks}
             </Text>
+            <Text style={{fontSize: 16, color: final === '5' ? '#008040' : final === '4' ? '#e1e100' : '#000'}}>
+                {final}
+            </Text>
+            </View>
         </View>
     );
 
@@ -70,6 +83,21 @@ const MarksScreen = () => {
                     : term === 'II'
                     ? item.stringMarks[5]
                     : item.stringMarks[0]
+                }
+                final={
+                    item.itogoMarks[0] != 0 && term === '1'
+                    ? item.itogoMarks[0]
+                    : item.averageMarks[1] != 0 && term === '2'
+                    ? item.itogoMarks[1]
+                    : item.averageMarks[2] != 0 && term === 'I'
+                    ? item.itogoMarks[2]
+                    : item.averageMarks[3] != 0 && term === '3'
+                    ? item.itogoMarks[3]
+                    : item.averageMarks[4] != 0 && term === '4'
+                    ? item.itogoMarks[4]
+                    : item.averageMarks[5] != 0 && term === 'II'
+                    ? item.itogoMarks[5]
+                    : ''
                 }
             />
     );

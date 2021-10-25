@@ -16,7 +16,7 @@ const Lesson = ({navigation}) => {
       }, []);
 
     const handleLink = (url) => {
-        Linking.openURL(url.replace(' ', '%20'));
+        Linking.openURL(url.replace(/[' ']/g, '%20'));
     };
 
     const data = [
