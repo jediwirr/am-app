@@ -23,7 +23,7 @@ const TimetableScreen = ({navigation}) => {
         })
             .then(response => response.json())
             .then(response => {
-                // console.log(response.schedule)
+                console.log(response.schedule)
                 setSchedule(response.schedule)
             })
             .catch(error => console.log(error));
@@ -48,7 +48,7 @@ const TimetableScreen = ({navigation}) => {
         </View>
     );
 
-    const Item = ({number, subject, item}) => (
+    const Item = ({number, time, subject, item}) => (
         <TouchableOpacity
             style={{ ...styles.listItemContainer, flexDirection: 'row' }}
             onPress={() => {
@@ -59,15 +59,18 @@ const TimetableScreen = ({navigation}) => {
             <Text style={
                 {
                     color: darkTheme ? '#fff' : '#000',
-                    fontSize: 18,
+                    fontSize: 15,
                     paddingHorizontal: 15,
                     paddingBottom: 15
                 }
-            }>{number}</Text>
+            }>{number}.</Text>
+            <Text style={{fontSize: 15}}>
+                {time}
+            </Text>
             <Text style={
                 {
                     paddingHorizontal: 15,
-                    fontSize: 16
+                    fontSize: 15
                 }
             }>
                 {subject}
@@ -80,6 +83,31 @@ const TimetableScreen = ({navigation}) => {
             return (
                 <Item
                     number={item.number_lesson}
+                    time={
+                        item.number_lesson === '0'
+                        ? '8:45 - 9:25'
+                        : item.number_lesson === '1'
+                        ? '9:30 - 10:10'
+                        : item.number_lesson === '2'
+                        ? '10:25 - 11:05'
+                        : item.number_lesson === '3'
+                        ? '11:25 - 12:05'
+                        : item.number_lesson === '4'
+                        ? '12:20 - 13:00'
+                        : item.number_lesson === '5'
+                        ? '13:20 - 14:00'
+                        : item.number_lesson === '6'
+                        ? '14:15 - 14:55'
+                        : item.number_lesson === '7'
+                        ? '15:10 - 15:50'
+                        : item.number_lesson === '8'
+                        ? '15:55 - 16:35'
+                        : item.number_lesson === '9'
+                        ? '16:40 - 17:20'
+                        : item.number_lesson === '10'
+                        ? '17:25 - 18:05'
+                        : ''
+                    }
                     subject={item.subject}
                     item={item}
                 />

@@ -28,7 +28,15 @@ const MarksScreen = () => {
     }, [user]);
 
     const Item = ({ title, marks, final }) => (
-        <View style={{ ...styles.listItemContainer, flexDirection: 'column', paddingRight: 15 }}>
+        <View 
+            style={
+                {
+                    ...styles.listItemContainer, 
+                    flexDirection: 'column', 
+                    paddingRight: 15 
+                }
+            }
+            >
             <Text
                 style={
                     {
@@ -42,12 +50,14 @@ const MarksScreen = () => {
             >
                 {title}
             </Text>
-            <View style={
-                {
-                    flexDirection: 'row',
-                    justifyContent: 'space-between'
+            <View 
+                style={
+                    {
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                    }
                 }
-            }>
+            >
             <Text
                 style={
                     {
@@ -59,7 +69,18 @@ const MarksScreen = () => {
             >
                 {marks}
             </Text>
-            <Text style={{fontSize: 16, color: final === '5' ? '#008040' : final === '4' ? '#e1e100' : '#000'}}>
+            <Text 
+                style={
+                    {
+                        fontSize: 16, 
+                        color: final === '5' 
+                        ? '#008040' 
+                        : final === '4' 
+                        ? '#e1e100' 
+                        : '#000'
+                    }
+                }
+                >
                 {final}
             </Text>
             </View>
@@ -67,39 +88,39 @@ const MarksScreen = () => {
     );
 
     const renderItem = ({ item }) => (
-            <Item
-                title={item.subject}
-                marks={
-                    term === '1'
-                    ? item.stringMarks[0]
-                    : term === '2'
-                    ? item.stringMarks[1]
-                    : term === '3'
-                    ? item.stringMarks[2]
-                    : term === '4'
-                    ? item.stringMarks[3]
-                    : term === 'I'
-                    ? item.stringMarks[4]
-                    : term === 'II'
-                    ? item.stringMarks[5]
-                    : item.stringMarks[0]
-                }
-                final={
-                    item.itogoMarks[0] != 0 && term === '1'
-                    ? item.itogoMarks[0]
-                    : item.averageMarks[1] != 0 && term === '2'
-                    ? item.itogoMarks[1]
-                    : item.averageMarks[2] != 0 && term === 'I'
-                    ? item.itogoMarks[2]
-                    : item.averageMarks[3] != 0 && term === '3'
-                    ? item.itogoMarks[3]
-                    : item.averageMarks[4] != 0 && term === '4'
-                    ? item.itogoMarks[4]
-                    : item.averageMarks[5] != 0 && term === 'II'
-                    ? item.itogoMarks[5]
-                    : ''
-                }
-            />
+        <Item
+            title={item.subject}
+            marks={
+                term === '1'
+                ? item.stringMarks[0]
+                : term === '2'
+                ? item.stringMarks[1]
+                : term === '3'
+                ? item.stringMarks[2]
+                : term === '4'
+                ? item.stringMarks[3]
+                : term === 'I'
+                ? item.stringMarks[4]
+                : term === 'II'
+                ? item.stringMarks[5]
+                : item.stringMarks[0]
+            }
+            final={
+                item.itogoMarks[0] != 0 && term === '1'
+                ? item.itogoMarks[0]
+                : item.averageMarks[1] != 0 && term === '2'
+                ? item.itogoMarks[1]
+                : item.averageMarks[2] != 0 && term === 'I'
+                ? item.itogoMarks[2]
+                : item.averageMarks[3] != 0 && term === '3'
+                ? item.itogoMarks[3]
+                : item.averageMarks[4] != 0 && term === '4'
+                ? item.itogoMarks[4]
+                : item.averageMarks[5] != 0 && term === 'II'
+                ? item.itogoMarks[5]
+                : ''
+            }
+        />
     );
 
     const Header = () => (
@@ -107,7 +128,14 @@ const MarksScreen = () => {
             {periods.map(period =>
                 <TouchableOpacity
                     key={period}
-                    style={{...styles.period, backgroundColor: term === period ? '#9E9E9E' : '#c9c9c9'}}
+                    style={
+                        {
+                            ...styles.period, 
+                            backgroundColor: term === period 
+                            ? '#9E9E9E' 
+                            : '#c9c9c9'
+                        }
+                    }
                     onPress={() =>
                         setTerm(period)
                     }>
