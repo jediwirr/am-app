@@ -26,9 +26,6 @@ const MarksScreen = () => {
         .then(response => response.json())
         .then(response => {
             setSubjects(response.marks);
-            // response.marks.map(item => {
-            //     console.log(item.weekMarks.join().replace(/[',']/g, ''));
-            // });
         })
         .catch(error => console.log(error));
     }, [user]);
@@ -100,9 +97,7 @@ const MarksScreen = () => {
     const renderItem = ({ item }) => (
         <Item
             title={item.subject}
-            marks={
-                item.weekMarks.join().replace(/[',]/g, '')
-            }
+            marks={item.weekMarks}
             allMarks={
                 term === '1'
                 ? item.stringMarks[0]
