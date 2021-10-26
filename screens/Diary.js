@@ -71,7 +71,9 @@ const DiaryScreen = ({navigation}) => {
             .then(response => response.json())
             .then(response => {
                 setLessons(response.lessons)
-                console.log(response)
+                response.lessons.map(item =>
+                    console.log(`${item.subject_name} - ${item.value}`)    
+                )
             })
             .catch(error => console.log(error));
         };

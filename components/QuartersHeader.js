@@ -27,7 +27,8 @@ const QuarterHeader = ({term}) => {
                             setTerm(period)
                             console.log(`${term} - term, ${period} - period`)
                         }
-                    }>
+                    }
+                >
                     <Text
                         key={period}
                         style={{textAlign: 'center'}}

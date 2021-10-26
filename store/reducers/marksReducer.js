@@ -1,6 +1,7 @@
 const initialState = {
     marks: '',
-    term: '1'
+    term: '1',
+    weekMarks: []
 };
 
 export const marksReducer = (state=initialState, action) => {
@@ -14,10 +15,17 @@ export const marksReducer = (state=initialState, action) => {
 
         case 'SET_TERM':
 
-        return {
-            ...state,
-            term: action.payload
-        }
+            return {
+                ...state,
+                term: action.payload
+            }
+
+        case 'SET_WEEK_MARKS':
+            
+            return {
+                ...state,
+                weekMarks: action.payload
+            }
 
         default:
             return state

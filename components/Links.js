@@ -10,7 +10,8 @@ const Links = ({col}) => {
         {icon: 'logo-facebook', color: '#3e49cb', url: 'https://www.facebook.com/almamaterspb'},
         {icon: 'logo-youtube', color: '#ff0000', url: 'https://www.youtube.com/user/almamaterspb'},
         {icon: 'logo-instagram', color: '#840c5b', url: 'https://www.instagram.com/almamaterspb/'},
-        {icon: 'pencil-outline', color: '#3e49cb', url: 'https://gimnazist.spb.ru/'}
+        {icon: 'pencil-outline', color: '#3e49cb', url: 'https://gimnazist.spb.ru/'},
+        // {icon: 'images-outline', color: '#3e49cb', url: 'https://diary.alma-mater-spb.ru/gallery/#'}
     ];
 
     const handleLink = (url) => Linking.openURL(url);

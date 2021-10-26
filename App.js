@@ -102,7 +102,7 @@ const App = () => {
       }
     });
 
-    Notifications.cancelAllScheduledNotificationsAsync('851b6a8b-fb1a-4076-982a-b929195b8d06');
+    // Notifications.cancelAllScheduledNotificationsAsync('');
   }, []);
 
   return (
