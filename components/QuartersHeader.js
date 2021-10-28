@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { styles } from '../components/Style';
 
 const QuartersHeader = ({term}) => {
-    const periods = ['1', '2', '3', '4', '5', '6'];
+    const periods = ['1', '2', '5', '3', '4', '6'];
     const dispatch = useDispatch();
     const setTerm = (payload) => dispatch({type: 'SET_TERM', payload});
 
@@ -34,12 +34,8 @@ const QuartersHeader = ({term}) => {
                         style={{textAlign: 'center'}}
                     >
                         {
-                            period === '3' 
-                            ? 'I' 
-                            : period === '4' 
-                            ? '3'
-                            : period === '5' 
-                            ? '4'
+                            period === '5' 
+                            ? 'I'
                             : period === '6' 
                             ? 'II'
                             : period

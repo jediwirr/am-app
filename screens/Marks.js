@@ -130,14 +130,15 @@ const MarksScreen = () => {
     );
 
     const Filter = () => (
-        <View style={
-                {
-                    backgroundColor: '#e0e0e0', 
-                    flexDirection: 'row', 
-                    justifyContent: 'space-evenly' 
+        <View 
+            style={
+                    {
+                        backgroundColor: '#e0e0e0', 
+                        flexDirection: 'row', 
+                        justifyContent: 'space-evenly' 
+                    }
                 }
-            }
-        >
+            >
             {
                 filterText.map(item => (
                     <TouchableOpacity
@@ -167,15 +168,15 @@ const MarksScreen = () => {
             style={styles.safeArea}
         >
             <Filter />
-            {
-                showAll
-                ? <QuartersHeader term={term} />
-                : <></>
-            }
             <FlatList
                 data={subjects}
                 renderItem={renderItem}
                 keyExtractor={item => item.subject_id}
+                ListHeaderComponent={
+                    showAll
+                    ? <QuartersHeader term={term} />
+                    : <></>
+                }
                 ListFooterComponent={
                     <Text style={{paddingVertical: 25}}></Text>
                 }
