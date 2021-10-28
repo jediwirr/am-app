@@ -3,7 +3,7 @@ import { Text, View, FlatList, SafeAreaView, TouchableOpacity } from 'react-nati
 import { useSelector } from 'react-redux';
 
 import { styles } from '../components/Style';
-import QuarterHeader from '../components/QuartersHeader';
+import QuartersHeader from '../components/QuartersHeader';
 
 const MarksScreen = () => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
@@ -12,7 +12,6 @@ const MarksScreen = () => {
 
     const [subjects, setSubjects] = useState('');
     const [showAll, setShowAll] = useState(false);
-    // const [weekMarks, setWeekMarks] = useState([]);
 
     // SET IT AUTAMOTICALLY!!!
     const term = useSelector(state => state.marks.term);
@@ -39,14 +38,13 @@ const MarksScreen = () => {
                     paddingRight: 15 
                 }
             }
-            >
+        >
             <Text
                 style={
                     {
                         color: darkTheme ? '#fff' : '#000',
-                        fontSize: 18,
+                        fontSize: 16,
                         paddingHorizontal: 15,
-                        paddingBottom: 15,
                         fontWeight: 'bold'
                     }
                 }
@@ -171,7 +169,7 @@ const MarksScreen = () => {
             <Filter />
             {
                 showAll
-                ? <QuarterHeader term={term} />
+                ? <QuartersHeader term={term} />
                 : <></>
             }
             <FlatList

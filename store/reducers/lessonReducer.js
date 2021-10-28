@@ -1,17 +1,27 @@
 const initialState = {
     openLesson: false,
     lessons: [],
-    lesson: {}
+    lesson: {},
+    homework: '',
+    link: ''
 };
 
 export const lessonReducer = (state=initialState, action) => {
     switch(action.type) {
         case 'TOGGLE_LESSON_INFO':
-
+            let arr = [];
+            let links = [];
+            action.lesson.homework.split(' ').map(item => {
+                item.startsWith('https')
+                ? links.push(item)
+                : arr.push(item)
+            })
             return {
                 ...state,
                 openLesson: !state.openLesson,
-                lesson: action.lesson
+                lesson: action.lesson,
+                homework: arr.join(' '),
+                link: links.join()
             }
 
         case 'CHANGE_LESSON':

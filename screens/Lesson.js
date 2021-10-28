@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { useSelector } from "react-redux";
 import * as Linking from 'expo-linking';
@@ -7,6 +7,8 @@ import { styles } from "../components/Style";
 
 const Lesson = ({navigation}) => {
     const lesson = useSelector(state => state.lesson.lesson);
+    const homework = useSelector(state => state.lesson.homework);
+    const links = useSelector(state => state.lesson.link);
     const date = useSelector(state => state.date.stringDate);
     const d = useSelector(state => state.date.stringDay);
     const m = useSelector(state => state.date.stringMonth);
@@ -22,36 +24,50 @@ const Lesson = ({navigation}) => {
     const data = [
         { title: 'Дата', info: `${date} ${m}, ${d}` },
         { title: 'Тема урока', info: lesson.name_lesson },
-        { title: 'Домашнее задание', info: lesson.homework },
+        { title: 'Домашнее задание', info: homework, links: links },
         { title: 'Оценки', info: lesson.value },
         { title: 'Замечания', info: lesson.comment, type: lesson.comment_type }
     ];
 
-    const Item = ({title, info, type}) => (
-        <View>
-            <Text style={styles.lessonInfoTitle}>
-                {title}
-            </Text>
-            <Text style={
+    const Item = ({title, info, links, type}) => {
+        const arr = [];
+        return (
+            <View>
+                <Text style={styles.lessonInfoTitle}>
+                    {title}
+                </Text>
                 {
-                    ...styles.lessonInfo, 
-                    color: type === 0 
-                    ? 'red' 
-                    : type === 1 
-                    ? 'green' 
-                    : '#000'
+                    info
+                    ? <Text 
+                        style={
+                            {
+                                ...styles.lessonInfo, 
+                                color: type === 0 
+                                ? 'red' 
+                                : type === 1 
+                                ? 'green' 
+                                : '#000'
+                            }
+                        }
+                    >
+                        {info}
+                    </Text>
+                    : <></>
                 }
-            }>
-                {info}
-            </Text>
-        </View>
-    );
+                {
+                    links
+                    ? <Text onPress={() => handleLink(links)} style={{ ...styles.lessonInfo, color: '#0080ff'}}>{links}</Text>
+                    : <></>
+                }
+            </View>
+        );
+    };
 
     const renderItem = ({item}) => {
-        if (item.info) {
+        if (item.info || item.links) {
             return (
                 <View>
-                    <Item title={item.title} info={item.info} type={item.type} />
+                    <Item title={item.title} info={item.info} links={item.links} type={item.type} />
                 </View>
             )
         }
@@ -136,3 +152,13 @@ const Lesson = ({navigation}) => {
 };
 
 export default Lesson;
+
+
+// const arr = [];
+// const string = 'feiefi ie op'
+// const arr2 = string.split(' ');
+// console.log(arr2)
+// arr2.map(item => {
+//     arr.push(item)
+//     console.log(arr.join(' '))
+// })

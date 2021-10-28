@@ -3,6 +3,7 @@ import {Text, View, ScrollView, Pressable, TouchableOpacity, SafeAreaView} from 
 import { Button } from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
 
 import { styles, theme, theme_text } from '../components/Style';
 import { days, months } from "../components/Date";
@@ -32,6 +33,10 @@ const DiaryScreen = ({navigation}) => {
 
     const userData = useSelector(state => state.auth.userData);
     const user = useSelector(state => state.auth.user);
+
+    const handleLink = (url) => {
+        Linking.openURL(url);
+    };
 
     const get_month = () => {
         for (let i=0; i<12; i++) {
@@ -71,9 +76,6 @@ const DiaryScreen = ({navigation}) => {
             .then(response => response.json())
             .then(response => {
                 setLessons(response.lessons)
-                response.lessons.map(item =>
-                    console.log(`${item.subject_name} - ${item.value}`)    
-                )
             })
             .catch(error => console.log(error));
         };
@@ -210,7 +212,18 @@ const DiaryScreen = ({navigation}) => {
                                 <Text style={{color: 'green', paddingHorizontal: 15, fontSize: 16}}>{lesson.value}</Text>
                             </View>
 
-                            <Text>{lesson.homework}</Text>
+                            <Text
+                                // onPress={() => {
+                                //     lesson.homework.split(' ').map(item => {
+                                //         item.startsWith('https')
+                                //         ? handleLink(item)
+                                //         : console.log('not a link')
+                                //     })
+                                // }}
+                            >
+                                {lesson.homework}
+                            </Text>
+
                             <Text
                                 style={{color: lesson.comment_type === 1 ? 'green' : 'red'}}
                             >{lesson.comment}</Text>
@@ -230,3 +243,10 @@ const DiaryScreen = ({navigation}) => {
 };
 
 export default DiaryScreen;
+
+
+// const homework = "Тема. Юридическая ответственность. Справочник. пункт 5.3.  Уголовный кодекс РФ Ст. 3–8, 44, Кодекс РФ об административных правонарушениях Гл. 3 Гражданский кодекс РФ (часть первая)  Ст. 12Трудовой кодекс РФ Ст. 192 https://drive.google.com/drive/folders/1udyWFyCgocu_7ufh8VRFVwQ_JQ6KB1Wz";
+
+// homework.split(' ').map(item => {
+//     console.log(item)
+// })

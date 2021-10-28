@@ -3,7 +3,7 @@ import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {styles, theme, theme_text} from '../components/Style';
-import QuarterHeader from '../components/QuartersHeader';
+import QuartersHeader from '../components/QuartersHeader';
 
 const LoadsScreen = ({navigation}) => {
     const darkTheme = useSelector(state => state.theme.darkTheme);
@@ -74,7 +74,7 @@ const LoadsScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <QuarterHeader term={term} />
+            <QuartersHeader term={term} />
             <FlatList
             data={subjects}
             renderItem={renderItem}

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { styles } from '../components/Style';
 
-const QuarterHeader = ({term}) => {
+const QuartersHeader = ({term}) => {
     const periods = ['1', '2', '3', '4', '5', '6'];
     const dispatch = useDispatch();
     const setTerm = (payload) => dispatch({type: 'SET_TERM', payload});
@@ -51,4 +51,4 @@ const QuarterHeader = ({term}) => {
     );
 };
 
-export default QuarterHeader;
+export default QuartersHeader;

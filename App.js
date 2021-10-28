@@ -7,8 +7,21 @@ import * as Notifications from 'expo-notifications';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './store/Store';
+import * as BackgroundFetch from 'expo-background-fetch';
+import * as TaskManager from 'expo-task-manager';
 
 import { UserNavigator } from './navigation/UserNavigator';
+
+const BACKGROUND_FETCH_TASK = 'background-fetch';
+
+TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
+  const now = Date.now();
+
+  console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
+
+  // Be sure to return the successful result type!
+  return BackgroundFetch.Result.NewData;
+});
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -26,6 +39,22 @@ const App = () => {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+
+  const [isRegistered, setIsRegistered] = React.useState(false);
+  const [status, setStatus] = React.useState(null);
+
+  async function registerBackgroundFetchAsync() {
+    return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+      minimumInterval: 1,
+      stopOnTerminate: false, // android only,
+      startOnBoot: true, // android only
+    });
+  }
+
+  // useEffect(() => {
+  //   // registerBackgroundFetchAsync();
+  //   BackgroundFetch.unregisterTaskAsync(BACKGROUND_FETCH_TASK);
+  // }, []);
   
   const registerForPushNotificationsAsync = async () => {
     let token;
@@ -76,11 +105,11 @@ const App = () => {
     };
   }, []);
 
-  async function schedulePushNotification() {
+  async function scheduleHomeworkNotification() {
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "Альма-Матер",
-        body: 'Проверьте дз на завтра'
+        body: 'Не забудьте сделать домашнее задание на завтра!'
       },
       trigger: {
         repeats: true,
@@ -90,20 +119,53 @@ const App = () => {
     });
   };
 
-  useEffect(() => {
-    Notifications.getAllScheduledNotificationsAsync()
-    .then(res => {
-      console.log(res);
-      if (res.length != 0) {
-        console.log('already subscribed');
-      } else {
-        // schedulePushNotification();
-        console.log('making a subscription');
-      }
+  async function scheduleMarksNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Альма-Матер",
+        body: 'Проверьте дз на завтра'
+      },
+      trigger: {
+        repeats: true,
+        weekday: 6,
+        hour: 17,
+        minute: 0
+      },
     });
+  };
 
-    // Notifications.cancelAllScheduledNotificationsAsync('');
-  }, []);
+  const [note, setNote] = useState('NOTE-3');
+
+  async function test() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Альма-Матер",
+        body: note
+      },
+      trigger: {
+        repeats: true,
+        seconds: 30
+      },
+    });
+  };
+
+  // useEffect(() => {
+  //   Notifications.getAllScheduledNotificationsAsync()
+  //   .then(res => {
+  //     console.log(res);
+  //     if (res.length != 0) {
+  //       console.log('already subscribed');
+  //       Notifications.cancelAllScheduledNotificationsAsync();
+  //     } else {
+  //       // test();
+  //       // scheduleMarksNotification();
+  //       // scheduleHomeworkNotification();
+  //       console.log('making a subscription');
+  //     }
+  //   });
+
+  //   // Notifications.cancelScheduledNotificationAsync('');
+  // }, []);
 
   return (
     <UserNavigator />
