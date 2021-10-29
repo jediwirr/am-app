@@ -7,21 +7,8 @@ import * as Notifications from 'expo-notifications';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './store/Store';
-import * as BackgroundFetch from 'expo-background-fetch';
-import * as TaskManager from 'expo-task-manager';
 
 import { UserNavigator } from './navigation/UserNavigator';
-
-const BACKGROUND_FETCH_TASK = 'background-fetch';
-
-TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
-  const now = Date.now();
-
-  console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
-
-  // Be sure to return the successful result type!
-  return BackgroundFetch.Result.NewData;
-});
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -43,18 +30,11 @@ const App = () => {
   const [isRegistered, setIsRegistered] = React.useState(false);
   const [status, setStatus] = React.useState(null);
 
-  async function registerBackgroundFetchAsync() {
-    return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-      minimumInterval: 1,
-      stopOnTerminate: false, // android only,
-      startOnBoot: true, // android only
-    });
-  }
-
-  // useEffect(() => {
-  //   // registerBackgroundFetchAsync();
-  //   BackgroundFetch.unregisterTaskAsync(BACKGROUND_FETCH_TASK);
-  // }, []);
+  useEffect(() => {
+    TaskManager.getRegisteredTasksAsync()
+    .then(res => console.log(res));
+    // TaskManager.unregisterAllTasksAsync();
+  }, []);
   
   const registerForPushNotificationsAsync = async () => {
     let token;

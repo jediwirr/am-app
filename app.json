@@ -24,6 +24,7 @@
       "buildNumber": "1.1.0"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "package": "com.almamater.diary",
       "versionCode": 5,
       "adaptiveIcon": {
