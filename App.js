@@ -22,19 +22,12 @@ const App = () => {
   const dispatch = useDispatch();
   const setMessage = (payload) => dispatch({type: 'SET_MESSAGE', payload});
   const message = useSelector(state => state.note.message);
-  const [expoPushToken, setExpoPushToken] = useState('');
+  // const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  const [isRegistered, setIsRegistered] = React.useState(false);
-  const [status, setStatus] = React.useState(null);
-
-  useEffect(() => {
-    TaskManager.getRegisteredTasksAsync()
-    .then(res => console.log(res));
-    // TaskManager.unregisterAllTasksAsync();
-  }, []);
+  const setExpoPushToken = (payload) => dispatch({type: 'SET_TOKEN', payload});
   
   const registerForPushNotificationsAsync = async () => {
     let token;
@@ -84,68 +77,6 @@ const App = () => {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
-  async function scheduleHomeworkNotification() {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Альма-Матер",
-        body: 'Не забудьте сделать домашнее задание на завтра!'
-      },
-      trigger: {
-        repeats: true,
-        hour: 17,
-        minute: 0
-      },
-    });
-  };
-
-  async function scheduleMarksNotification() {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Альма-Матер",
-        body: 'Проверьте дз на завтра'
-      },
-      trigger: {
-        repeats: true,
-        weekday: 6,
-        hour: 17,
-        minute: 0
-      },
-    });
-  };
-
-  const [note, setNote] = useState('NOTE-3');
-
-  async function test() {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Альма-Матер",
-        body: note
-      },
-      trigger: {
-        repeats: true,
-        seconds: 30
-      },
-    });
-  };
-
-  // useEffect(() => {
-  //   Notifications.getAllScheduledNotificationsAsync()
-  //   .then(res => {
-  //     console.log(res);
-  //     if (res.length != 0) {
-  //       console.log('already subscribed');
-  //       Notifications.cancelAllScheduledNotificationsAsync();
-  //     } else {
-  //       // test();
-  //       // scheduleMarksNotification();
-  //       // scheduleHomeworkNotification();
-  //       console.log('making a subscription');
-  //     }
-  //   });
-
-  //   // Notifications.cancelScheduledNotificationAsync('');
-  // }, []);
 
   return (
     <UserNavigator />

@@ -3,7 +3,7 @@ import {Text, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import * as Linking from "expo-linking";
 
-const Links = ({col}) => {
+const Links = ({col, navigation}) => {
 
     const socialMedia = [
         {icon: 'logo-vk', color: '#3e49cb', url: 'https://vk.com/almamater_spb'},
@@ -29,7 +29,11 @@ const Links = ({col}) => {
                                 name={item.icon}
                                 size={25}
                                 color={item.color}
-                                onPress={() => handleLink(item.url)}
+                                onPress={
+                                    () => item.icon === 'pencil-outline' 
+                                    ?  navigation.navigate('Гимназист')
+                                    : handleLink(item.url)
+                                }
                             />
                         </View>
                 )}

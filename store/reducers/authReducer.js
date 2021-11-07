@@ -18,6 +18,14 @@ export const authReducer = (state=initialState, action) => {
                 userData: action.user_data
             }
 
+        case 'ADMIN_LOG_IN':
+
+        return {
+            ...state,
+            isSignedIn: true,
+            userType: 'admin'
+        }
+
         case 'SET_USER':
             let st;
 

@@ -9,6 +9,7 @@ import { lessonReducer } from "./reducers/lessonReducer";
 import { loadsReducer } from "./reducers/loadsReducer";
 import { timetableReducer } from "./reducers/timetableReducer";
 import { notificationsReducer } from './reducers/notificationsReducer';
+import { GymReducer } from './reducers/GymReducer';
 
 const rootReducer = combineReducers(
     {
@@ -20,7 +21,8 @@ const rootReducer = combineReducers(
         lesson: lessonReducer,
         loads: loadsReducer,
         tt: timetableReducer,
-        note: notificationsReducer
+        note: notificationsReducer,
+        gym: GymReducer
     });
 
 export const store = createStore(rootReducer);
