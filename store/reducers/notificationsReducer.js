@@ -8,10 +8,10 @@ export const notificationsReducer = (state=initialState, action) => {
     switch(action.type) {
         case 'SET_TOKEN':
 
-        return {
-            ...state,
-            expoPushToken: action.payload
-        }
+            return {
+                ...state,
+                expoPushToken: action.payload
+            };
 
         case 'SET_MESSAGE':
             
@@ -22,10 +22,10 @@ export const notificationsReducer = (state=initialState, action) => {
 
         case 'SET_STATUS':
             
-        return {
-            ...state,
-            status: action.payload
-        }
+            return {
+                ...state,
+                status: action.payload
+            }
 
         default:
 

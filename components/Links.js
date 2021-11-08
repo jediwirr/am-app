@@ -30,9 +30,11 @@ const Links = ({col, navigation}) => {
                                 size={25}
                                 color={item.color}
                                 onPress={
-                                    () => item.icon === 'pencil-outline' 
+                                    () => 
+                                    item.icon === 'pencil-outline' 
                                     ?  navigation.navigate('Гимназист')
-                                    : handleLink(item.url)
+                                    : 
+                                    handleLink(item.url)
                                 }
                             />
                         </View>

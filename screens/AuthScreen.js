@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
     TextInput,
     Text,
@@ -21,6 +21,7 @@ const AuthScreen = ({navigation}) => {
     const [login, onChangeLogin] = useState('');
     const [password, onChangePassword] = useState('');
     const admin_log_in = () => dispatch({type: 'ADMIN_LOG_IN'});
+    const pushToken = useSelector(state => state.note.expoPushToken);
 
     const getAuthorized = (data) => {
         if (data != null) {
@@ -56,7 +57,7 @@ const AuthScreen = ({navigation}) => {
     }, [])
   
     const sendCredentials = () => {
-        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/check_login.php?username=${login}&password=${password}&token=alma831`, {
+        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/check_login.php?username=${login}&password=${password}&token=alma831&push_token=${pushToken}`, {
             method: 'GET'
         })
         .then(response => response.json())

@@ -22,7 +22,6 @@ const App = () => {
   const dispatch = useDispatch();
   const setMessage = (payload) => dispatch({type: 'SET_MESSAGE', payload});
   const message = useSelector(state => state.note.message);
-  // const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -45,6 +44,7 @@ const App = () => {
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
       console.log(token);
+      sendPushToGym(token);
     } else {
       alert('Must use physical device for Push Notifications');
     }
@@ -57,8 +57,24 @@ const App = () => {
         lightColor: '#FF231F7C',
       });
     }
-
     return token;
+  };
+
+  const sendPushToGym = (pt) => {
+    const data = {
+        'push_token': pt,
+        'owner': 'anteon'
+    }
+
+    fetch('https://gimnazist.herokuapp.com/api/tokens/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(response => console.log(response))
   };
 
   useEffect(() => {
