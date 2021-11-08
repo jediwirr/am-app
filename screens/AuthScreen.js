@@ -30,6 +30,7 @@ const AuthScreen = ({navigation}) => {
                 'user_id': data.user_id
             }
             log_in(data.student, data.student[0], data.type, obj)
+            console.log(data.student, data.student[0], data.type, obj)
         }
     };
 

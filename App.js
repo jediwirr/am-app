@@ -20,8 +20,8 @@ Notifications.setNotificationHandler({
 
 const App = () => {
   const dispatch = useDispatch();
-  const setMessage = (payload) => dispatch({type: 'SET_MESSAGE', payload});
-  const message = useSelector(state => state.note.message);
+  // const setMessage = (payload) => dispatch({type: 'SET_MESSAGE', payload});
+  // const message = useSelector(state => state.note.message);
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -63,7 +63,7 @@ const App = () => {
   const sendPushToGym = (pt) => {
     const data = {
         'push_token': pt,
-        'owner': 'anteon'
+        'owner': ''
     }
 
     fetch('https://gimnazist.herokuapp.com/api/tokens/', {
@@ -75,6 +75,7 @@ const App = () => {
     })
     .then(response => response.json())
     .then(response => console.log(response))
+    .catch(error => console.log(error))
   };
 
   useEffect(() => {

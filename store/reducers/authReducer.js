@@ -2,7 +2,8 @@ const initialState = {
     isSignedIn: false,
     students: [],
     user: {},
-    userType: ''
+    userType: '',
+    userData: ''
 };
 
 export const authReducer = (state=initialState, action) => {
