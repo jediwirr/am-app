@@ -24,6 +24,9 @@ const ActsScreen = () => {
         {name: 'Май', num: '5'}
     ];
 
+    // const month = months.filter(item => item.num === '9')
+    // console.log(month)
+
     const handleLink = (url) => {
         Linking.openURL(url);
     };
@@ -41,7 +44,7 @@ const ActsScreen = () => {
 
     const openAct =(month) => {
         handleLink(`https://diary.alma-mater-spb.ru/e-journal/parents/print_user.php?clue=${userData.clue}&month=${month}&student=${user.student_id}`);
-        console.log(userData);
+        console.log(month);
     };
 
     const Header = () => (
@@ -59,10 +62,10 @@ const ActsScreen = () => {
         </Text>
     );
 
-    const Item = ({month, date}) => (
+    const Item = ({monthNum, month, date}) => (
         <TouchableOpacity
             style={{...styles.listItemContainer, flexDirection: 'row', justifyContent: 'space-between'}}
-            onPress={() => openAct('9')}
+            onPress={() => openAct(monthNum)}
         >
             <Text style={{fontSize: 18, fontWeight: 'bold'}}>{month}</Text>
             <View style={{flexDirection: 'row'}}>
@@ -76,9 +79,15 @@ const ActsScreen = () => {
     );
 
     const renderItem = ({item}) => {
+        const selectedMonth = months.filter(m => m.num === item.month)
 
         return (
             <Item
+                monthNum={
+                    selectedMonth.map(m => 
+                        m.num === item.month ? m.num : ''
+                    )
+                }
                 month={
                     months.map(m => 
                         m.num === item.month ? m.name : ''

@@ -29,8 +29,14 @@ const Lesson = ({navigation}) => {
         { title: 'Замечания', info: lesson.comment, type: lesson.comment_type }
     ];
 
+    const [selectable, setSelectable] = useState(false);
+
+    const handlePress = (uri) => {
+        setSelectable(true);
+        handleLink(uri);
+    }
+
     const Item = ({title, info, links, type}) => {
-        const arr = [];
         return (
             <View>
                 <Text style={styles.lessonInfoTitle}>
@@ -39,6 +45,8 @@ const Lesson = ({navigation}) => {
                 {
                     info
                     ? <Text 
+                        onPress={() => setSelectable(true)}
+                        selectable={selectable}
                         style={
                             {
                                 ...styles.lessonInfo, 
@@ -56,7 +64,7 @@ const Lesson = ({navigation}) => {
                 }
                 {
                     links
-                    ? <Text onPress={() => handleLink(links)} style={{ ...styles.lessonInfo, color: '#0080ff'}}>{links}</Text>
+                    ? <Text selectable={selectable} onPress={() => handlePress(links)} style={{ ...styles.lessonInfo, color: '#0080ff'}}>{links}</Text>
                     : <></>
                 }
             </View>
@@ -152,13 +160,3 @@ const Lesson = ({navigation}) => {
 };
 
 export default Lesson;
-
-
-// const arr = [];
-// const string = 'feiefi ie op'
-// const arr2 = string.split(' ');
-// console.log(arr2)
-// arr2.map(item => {
-//     arr.push(item)
-//     console.log(arr.join(' '))
-// })

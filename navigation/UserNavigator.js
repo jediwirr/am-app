@@ -41,6 +41,9 @@ export const UserNavigator = () => {
                 <Stack.Screen
                     name='Акты'
                     component={ActsScreen}
+                    options={{
+                        headerShown: true
+                    }}
                 />
                 <Stack.Screen
                     name='Настройки'

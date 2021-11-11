@@ -212,15 +212,7 @@ const DiaryScreen = ({navigation}) => {
                                 <Text style={{color: 'green', paddingHorizontal: 15, fontSize: 16}}>{lesson.value}</Text>
                             </View>
 
-                            <Text
-                                // onPress={() => {
-                                //     lesson.homework.split(' ').map(item => {
-                                //         item.startsWith('https')
-                                //         ? handleLink(item)
-                                //         : console.log('not a link')
-                                //     })
-                                // }}
-                            >
+                            <Text>
                                 {lesson.homework}
                             </Text>
 
@@ -243,10 +235,3 @@ const DiaryScreen = ({navigation}) => {
 };
 
 export default DiaryScreen;
-
-
-// const homework = "Тема. Юридическая ответственность. Справочник. пункт 5.3.  Уголовный кодекс РФ Ст. 3–8, 44, Кодекс РФ об административных правонарушениях Гл. 3 Гражданский кодекс РФ (часть первая)  Ст. 12Трудовой кодекс РФ Ст. 192 https://drive.google.com/drive/folders/1udyWFyCgocu_7ufh8VRFVwQ_JQ6KB1Wz";
-
-// homework.split(' ').map(item => {
-//     console.log(item)
-// })

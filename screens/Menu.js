@@ -2,7 +2,6 @@ import React from 'react';
 import {Text, FlatList, TouchableOpacity, View, Dimensions, SafeAreaView} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import * as Notifications from 'expo-notifications';
 
 import {styles, theme, styles_dark} from '../components/Style';
 import Links from "../components/Links";
@@ -47,11 +46,29 @@ const MenuScreen = ({navigation}) => {
         });
     }
 
+    const sendPushToGym = (pt) => {
+        const data = {
+            'push_token': pt,
+            'owner': ''
+        }
+    
+        fetch('https://gimnazist.herokuapp.com/api/tokens/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
+      };
+
     const Item = ({name, icon}) => (
         <TouchableOpacity
             style={styles.listItemContainer}
             onPress={() =>
-                name === 'Send push' ? sendPushNotification(pushToken) : navigation.navigate({name})
+                name === 'Send push' ? sendPushToGym(pushToken) : navigation.navigate({name})
             }>
             <Ionicons
                 name={icon}
