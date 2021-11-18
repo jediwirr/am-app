@@ -5,7 +5,8 @@
     "privacy": "public",
     "description": "Приложение гимназии 'АЛЬМА-МАТЕР'",
     "version": "3.0.0",
-    "orientation": "portrait",
+    "scheme": "amapp",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -21,7 +22,8 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alma-mater-spb.ediary",
-      "buildNumber": "3.0.0"
+      "buildNumber": "3.0.0",
+      "usesIcloudStorage": true
     },
     "android": {
       "googleServicesFile": "./google-services.json",

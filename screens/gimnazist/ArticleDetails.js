@@ -14,7 +14,7 @@ const ArticleDetails = (props) => {
     const handled = useSelector(state => state.gym.handled);
     const dataItem = useSelector(state => state.gym.dataItem);
     const userid = useSelector(state => state.gym.userid);
-    const username = useSelector(state => state.gym.userName);
+    // const username = useSelector(state => state.gym.userName);
     const comments = useSelector(state => state.gym.comments);
     const dispatch = useDispatch();
     const loadDataItem = (id, by_user) => dispatch({type: 'LOAD_DATA_ITEM', id, by_user});
@@ -67,11 +67,24 @@ const ArticleDetails = (props) => {
         setMessage('');
     }
 
+    // const markHeaders = (str) => {
+    //     let arr = str.split('\n');
+    //     arr.forEach(item => {
+    //         if (item.includes('*')) {
+    //             item
+    //         }
+    //     })
+    // });
+
     return (
         <ScrollView>
             <View style={styles.viewStyle}>
                 <Text style={{fontSize: 25, fontWeight: 'bold'}}>
                     {dataItem.title}
+                </Text>
+
+                <Text style={{fontSize: 18, fontStyle: 'italic'}}>
+                    {dataItem.author}
                 </Text>
 
                 <View>
@@ -83,12 +96,20 @@ const ArticleDetails = (props) => {
                     />
                 </View>
 
+                <Text style={{fontSize: 16, fontStyle: 'italic'}}>
+                    {dataItem.photographer}
+                </Text>
+
                 <Text style={{fontSize: 20, marginTop: 15, fontWeight: 'bold'}}>
                     {dataItem.description}
                 </Text>
 
                 <Text style={{fontSize: 20, marginTop: 15}}>
                     {dataItem.content}
+                </Text>
+
+                <Text style={{fontSize: 18, fontStyle: 'italic'}}>
+                    {dataItem.sign}
                 </Text>
             </View>
             <UserPanel 

@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { useSelector } from "react-redux";
 import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
 
 import { styles } from "../components/Style";
 
@@ -17,8 +18,9 @@ const Lesson = ({navigation}) => {
         navigation.setOptions({ headerTitle: lesson.subject_name });
       }, []);
 
-    const handleLink = (url) => {
-        Linking.openURL(url.replace(/[' ']/g, '%20'));
+    const _handleLink = async (url) => {
+        await WebBrowser.openBrowserAsync(encodeURI(url).replace(/[' ']/g, '%20'));
+        console.log(url.replace(/[' ']/g, '%20'));
     };
 
     const data = [
@@ -33,7 +35,7 @@ const Lesson = ({navigation}) => {
 
     const handlePress = (uri) => {
         setSelectable(true);
-        handleLink(uri);
+        _handleLink(uri);
     }
 
     const Item = ({title, info, links, type}) => {
@@ -58,7 +60,7 @@ const Lesson = ({navigation}) => {
                             }
                         }
                     >
-                        {info}
+                        {info.toString()}
                     </Text>
                     : <></>
                 }
@@ -118,7 +120,7 @@ const Lesson = ({navigation}) => {
                         }
                         key={lesson.lesson_id}
                         onPress={
-                            () => handleLink(item.url)
+                            () => _handleLink(item.url)
                         }
                     >
                         {item.title}
@@ -136,7 +138,7 @@ const Lesson = ({navigation}) => {
                         }
                         key={lesson.lesson_id}
                         onPress={
-                            () => handleLink(item.url)
+                            () => _handleLink(item.url)
                         }
                     >
                         {item.title}

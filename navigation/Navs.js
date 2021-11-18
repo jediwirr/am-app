@@ -38,25 +38,6 @@ export const HomeToDetailsNav = () => {
                     name="Home" 
                     component={HomeOrCatNav}
                     options={{...myStyles}}
-                    // options = {({navigation}) => ({
-                    //     ...myStyles, 
-                    //     title: homeTitle,
-                    //     headerRight: () => (
-                    //         <Button
-                    //             color="gray"
-                    //             onPress={() => {
-                    //                 navigation.navigate('UserSettings');
-                    //             }}
-                    //         >
-                    //             {`${username} `} 
-                    //             <Ionicons 
-                    //                 name='person' 
-                    //                 size={25}
-                    //                 color="#711E63"
-                    //             />
-                    //         </Button>
-                    //     )
-                    // })}
                 />
                 <Stack.Screen 
                     name="Details" 

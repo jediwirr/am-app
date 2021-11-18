@@ -53,7 +53,7 @@ const TimetableScreen = ({navigation}) => {
             style={
                 { 
                     ...styles.listItemContainer, 
-                    flexDirection: 'row' 
+                    flexDirection: 'column' 
                 }
         }
             onPress={() => {
@@ -61,21 +61,24 @@ const TimetableScreen = ({navigation}) => {
                 navigation.navigate('Редактирование');
             }}
         >
-            <Text 
-                style={
-                    {
-                        color: darkTheme ? '#fff' : '#000',
-                        fontSize: 15,
-                        paddingHorizontal: 15,
-                        paddingBottom: 15
+            <View style={{flexDirection: 'row'}}>
+                <Text 
+                    style={
+                        {
+                            color: darkTheme ? '#fff' : '#000',
+                            fontSize: 15,
+                            fontWeight: 'bold',
+                            paddingHorizontal: 15,
+                            paddingBottom: 15
+                        }
                     }
-                }
-            >
-                {number}.
-            </Text>
-            <Text style={{fontSize: 15}}>
-                {time}
-            </Text>
+                >
+                    {number}.
+                </Text>
+                <Text style={{fontSize: 15, fontStyle: 'italic'}}>
+                    {time}
+                </Text>
+            </View>
             <Text 
                 style={
                     {

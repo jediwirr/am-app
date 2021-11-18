@@ -7,8 +7,12 @@ import * as Notifications from 'expo-notifications';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './store/Store';
+import * as Linking from 'expo-linking';
+import { useNavigation } from '@react-navigation/native';
 
 import { UserNavigator } from './navigation/UserNavigator';
+
+const prefix = Linking.createURL('/');
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -25,7 +29,7 @@ const App = () => {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-
+  const navigation = useNavigation();
   const setExpoPushToken = (payload) => dispatch({type: 'SET_TOKEN', payload});
   
   const registerForPushNotificationsAsync = async () => {
@@ -66,7 +70,7 @@ const App = () => {
         'owner': ''
     }
 
-    fetch('https://gimnazist.herokuapp.com/api/tokens/', {
+    fetch('gimnazist.herokuapp.com/api/tokens/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -78,6 +82,7 @@ const App = () => {
     .catch(error => console.log(error))
   };
 
+
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
@@ -86,7 +91,14 @@ const App = () => {
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
+      // console.log(response.notification.request.content.data);
+      const source = response.notification.request.content.data;
+      console.log(source)
+      if (source.url === "gym") {
+        navigation.navigate('Гимназист');
+      } else {
+        navigation.navigate('DiaryNavigator');
+      }
     });
 
     return () => {
@@ -101,12 +113,18 @@ const App = () => {
 };
 
 export default function () {
+
+  const linking = {
+    prefixes: [prefix],
+  };
+  
+
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Provider store={store}>
           <App />
       </Provider>
-      <StatusBar style="light" backgroundColor='#002e2f' />
+      <StatusBar style={Platform.OS === 'android' ? 'light' : 'dark'} backgroundColor='#002e2f' />
     </NavigationContainer>
   )
 };

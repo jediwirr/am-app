@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 
-const ip = 'https://gimnazist.herokuapp.com/api/'
+const ip = 'gimnazist.herokuapp.com/api'
+// gimnazist.herokuapp.com/api
 // 192.168.0.217:80/api
 // 192.168.0.88
 // 192.168.61.249

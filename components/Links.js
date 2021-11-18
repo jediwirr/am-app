@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import * as Linking from "expo-linking";
+import * as WebBrowser from 'expo-web-browser';
 
 const Links = ({col, navigation}) => {
 
@@ -14,7 +14,10 @@ const Links = ({col, navigation}) => {
         // {icon: 'images-outline', color: '#3e49cb', url: 'https://diary.alma-mater-spb.ru/gallery/#'}
     ];
 
-    const handleLink = (url) => Linking.openURL(url);
+    const _handleLink = async(url) => {
+        let result = await WebBrowser.openBrowserAsync(url);
+        console.log(JSON.stringify(result));
+    };
 
     return (
         <View>
@@ -31,10 +34,10 @@ const Links = ({col, navigation}) => {
                                 color={item.color}
                                 onPress={
                                     () => 
-                                    // item.icon === 'pencil-outline' 
-                                    // ?  navigation.navigate('Гимназист')
-                                    // : 
-                                    handleLink(item.url)
+                                    item.icon === 'pencil-outline' 
+                                    ?  navigation.navigate('Гимназист')
+                                    : 
+                                    _handleLink(item.url)
                                 }
                             />
                         </View>

@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
         color: '#000'
     },
     listItemContainer: {
-        paddingVertical: 5,
+        // paddingVertical: 5,
         flexDirection: 'row',
         borderBottomColor: 'gray',
         borderBottomWidth: 1
