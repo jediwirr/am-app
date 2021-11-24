@@ -4,7 +4,6 @@ import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as Linking from 'expo-linking';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MainNavigator } from './MainNavigator';
