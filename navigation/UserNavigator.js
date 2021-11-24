@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
+import { Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { MainNavigator } from './MainNavigator';
 import AdsScreen from '../screens/Ads';
@@ -14,8 +19,106 @@ import { HomeToDetailsNav } from './Navs';
 
 const Stack = createStackNavigator();
 
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+
 export const UserNavigator = () => {
     const isSignedIn = useSelector(state => state.auth.isSignedIn);
+    const dispatch = useDispatch();
+
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+    const navigation = useNavigation();
+    const setExpoPushToken = (payload) => dispatch({type: 'SET_TOKEN', payload});
+
+    const sendPushToGym = (pt) => {
+        const data = {
+            'push_token': pt,
+            'owner': ''
+        }
+    
+        fetch('gimnazist.herokuapp.com/api/tokens/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
+    };
+
+    const registerForPushNotificationsAsync = async () => {
+        let token;
+    
+        if (Constants.isDevice) {
+          const { status: existingStatus } = await Notifications.getPermissionsAsync();
+          let finalStatus = existingStatus;
+          if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+          }
+          token = (await Notifications.getExpoPushTokenAsync()).data;
+          console.log(token);
+          sendPushToGym(token);
+        } else {
+          alert('Must use physical device for Push Notifications');
+        }
+      
+        if (Platform.OS === 'android') {
+          Notifications.setNotificationChannelAsync('default', {
+            name: 'default',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+          });
+        }
+        return token;
+    };
+
+    useEffect(() => {
+        const lastNotificationResponse = Notifications.getLastNotificationResponseAsync()
+        console.log(JSON.stringify(lastNotificationResponse))
+        // Linking.getInitialURL().then(url => console.log(url))
+    
+        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+          setNotification(notification);
+        //   console.log(notification);
+        });
+    
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+          // console.log(response.notification.request.content.data);
+          const source = response.notification.request.content.data;
+        //   console.log(source)
+          if (source.url === "gym") {
+            // Linking.openURL('exp://127.0.0.1:19000/--/gym');
+            navigation.navigate('Гимназист');
+          } else {
+            navigation.navigate('DiaryNavigator');
+          }
+        });
+    
+        return () => {
+          Notifications.removeNotificationSubscription(notificationListener.current);
+          Notifications.removeNotificationSubscription(responseListener.current);
+        };
+      }, []);
+
+
+
     const Nav = () => (
         <Stack.Navigator screenOptions={{
             headerStyle: {
